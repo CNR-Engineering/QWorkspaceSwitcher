@@ -83,7 +83,7 @@ class DockApplicator:
                  "visible": False, "area": "left"},
             ])
         """
-        main_win    = iface.mainWindow()
+        main_win = iface.mainWindow()
         area_groups = {}
 
         for dock_cfg in docks_config:
@@ -102,7 +102,7 @@ class DockApplicator:
             if area not in area_groups:
                 area_groups[area] = []
             area_groups[area].append({
-                "dock":   dock,
+                "dock":    dock,
                 "config": dock_cfg,
             })
 
@@ -233,3 +233,4 @@ class DockApplicator:
                 if dock_info["name"] == name:
                     return dock_info["object"]
         return None
+    

@@ -141,6 +141,10 @@ class MainWindow(QDialog, FORM_CLASS):
             self._on_perspective_selected
         )
 
+        self.engine.config_io.configChanged.connect(
+            self._on_config_changed
+        )
+
     # ─────────────────────────────────────────────
     # BUTTON STYLE CONFIGURATION
     # ─────────────────────────────────────────────
@@ -1244,3 +1248,28 @@ class MainWindow(QDialog, FORM_CLASS):
         self.labelPlaceholder.setVisible(not visible)
         if hasattr(self, 'groupConfig'):
             self.groupConfig.setVisible(visible)
+
+    def _on_config_changed(self):
+        """
+        Called when user.psp.json is modified from outside.
+        Refreshes the workspace list and trees.
+        """
+        # Sauvegarder la sélection courante
+        current = self.inputName.text().strip()
+
+        # Rafraîchir la liste
+        self._refresh_list()
+
+        # Repeupler les trees avec le nouveau registre
+        self._populate_tree()
+
+        # Restaurer la sélection si elle existe encore
+        if current and current in self.engine.list_perspectives():
+            items = self.listPerspectives.findItems(
+                current, Qt.MatchExactly
+            )
+            if items:
+                self.listPerspectives.blockSignals(True)
+                self.listPerspectives.setCurrentItem(items[0])
+                self.listPerspectives.blockSignals(False)
+                self._load_perspective_in_tree(current)
