@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*.pyc
+resources_rc.py
+resources.py
+resources.qrc
+ui_*.py
+perspectives/user.psp.json
+.DS_Store
+__MACOSX/
+*.zip
