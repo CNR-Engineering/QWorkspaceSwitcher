@@ -1,0 +1,1540 @@
+{
+  "perspectives": [
+    {
+      "name": "QGIS",
+      "plugins": {
+        "georelai": {
+          "docks": [
+            {
+              "name": "domains_edition",
+              "label": "Edition des domaines",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "altimetric_reference_change",
+              "label": "Changement de référentiel altimétrique",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "import_bornes",
+              "label": "Import des bornes",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "import_bathy_point",
+              "label": "Import des points bathy",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "import_profil_points",
+              "label": "Création profil points",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "import_profil_long_from_files",
+              "label": "Import profils en long",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "edition_profil",
+              "label": "Edition des profils",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "etendre_profil_trace",
+              "label": "Étendre les traces de profil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "compute_profil_point_from_mesh",
+              "label": "Création profils point depuis MNT",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "update_profil_trace",
+              "label": "Mettre à jour les traces de profil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "create_sections",
+              "label": "Positionner les sections",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "axe_auto",
+              "label": "Axe auto",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "thalweg_limits",
+              "label": "Limites de Thalweg",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "lateral_limits",
+              "label": "Limites latérales",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "axe_hydro_limits",
+              "label": "Limites axe hydraulique",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "compute_profil_long",
+              "label": "Tracer limites",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "limite_from_profil_long",
+              "label": "Pré-positionner les limites",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "calcul_casier_loi",
+              "label": "Calculer PCS",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "vue_casier_loi",
+              "label": "Visualiser PCS",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "compute_seuil_point",
+              "label": "Convertir Trace Seuils 3D",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "compute_seuil_elem",
+              "label": "Construire éléments de seuil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "vue_seuil",
+              "label": "Visualiser seuil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "create_emprise",
+              "label": "Créer les emprises de semis de points",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "create_branch",
+              "label": "Créer les branches",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "export_bathy",
+              "label": "Export bathy",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "logs",
+              "label": "Logs",
+              "visible": false,
+              "area": "bottom"
+            },
+            {
+              "name": "calcul_crue",
+              "label": "Calcul Crue",
+              "visible": false,
+              "area": "bottom"
+            },
+            {
+              "name": "explorateur_emh",
+              "label": "Explorateur EMH",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "noeud_viewer",
+              "label": "Noeud",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "casier_viewer",
+              "label": "Casier",
+              "visible": false,
+              "area": "right"
+            }
+          ],
+          "toolbars": [
+            {
+              "name": "GeorelaiToolbar",
+              "label": "GeorelaiToolbar",
+              "visible": true,
+              "area": "top",
+              "line": 3,
+              "order": 1
+            }
+          ]
+        },
+        "processing": {
+          "docks": [
+            {
+              "name": "ResultsViewer",
+              "label": "Results Viewer",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "ProcessingToolbox",
+              "label": "Processing Toolbox",
+              "visible": false,
+              "area": "right"
+            }
+          ],
+          "toolbars": []
+        },
+        "__qgis_native__": {
+          "docks": [
+            {
+              "name": "AdvancedDigitizingTools",
+              "label": "Advanced Digitizing",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "Layers",
+              "label": "Layers",
+              "visible": true,
+              "area": "left"
+            },
+            {
+              "name": "undo/redo dock",
+              "label": "Undo/Redo",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "StatisticalSummaryDockWidget",
+              "label": "Statistics",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "BookmarksDockWidget",
+              "label": "Spatial Bookmark Manager",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "VertexEditor",
+              "label": "Vertex Editor",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "LayerOrder",
+              "label": "Layer Order",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "Overview",
+              "label": "Overview",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "QgsGeometryValidationDockBase",
+              "label": "Geometry Validation",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "LayerStyling",
+              "label": "Layer Styling",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "DevTools",
+              "label": "Debugging/Development Tools",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "Temporal Controller",
+              "label": "Temporal Controller",
+              "visible": false,
+              "area": "top"
+            },
+            {
+              "name": "Browser2",
+              "label": "Browser (2)",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "GPSInformation",
+              "label": "GPS Information",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "MessageLog",
+              "label": "Log Messages",
+              "visible": false,
+              "area": "bottom"
+            },
+            {
+              "name": "theTileScaleDock",
+              "label": "Tile Scale",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "Browser",
+              "label": "Browser",
+              "visible": true,
+              "area": "left"
+            }
+          ],
+          "toolbars": [
+            {
+              "name": "mFileToolBar",
+              "label": "Project Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mLayerToolBar",
+              "label": "Manage Layers Toolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mDigitizeToolBar",
+              "label": "Digitizing Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 2,
+              "order": 1
+            },
+            {
+              "name": "mAdvancedDigitizeToolBar",
+              "label": "Advanced Digitizing Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mMapNavToolBar",
+              "label": "Map Navigation Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mAttributesToolBar",
+              "label": "Attributes Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mPluginToolBar",
+              "label": "Plugins Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 2,
+              "order": 1
+            },
+            {
+              "name": "mHelpToolBar",
+              "label": "Help Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 2,
+              "order": 1
+            },
+            {
+              "name": "mRasterToolBar",
+              "label": "Raster Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3,
+              "order": 1
+            },
+            {
+              "name": "mLabelToolBar",
+              "label": "Label Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 2,
+              "order": 1
+            },
+            {
+              "name": "mVectorToolBar",
+              "label": "Vector Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 2,
+              "order": 1
+            },
+            {
+              "name": "mDatabaseToolBar",
+              "label": "Database Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3,
+              "order": 1
+            },
+            {
+              "name": "mWebToolBar",
+              "label": "Web Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 2,
+              "order": 1
+            },
+            {
+              "name": "mSnappingToolBar",
+              "label": "Snapping Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3,
+              "order": 1
+            },
+            {
+              "name": "mDataSourceManagerToolBar",
+              "label": "Data Source Manager Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 2,
+              "order": 1
+            },
+            {
+              "name": "mShapeDigitizeToolBar",
+              "label": "Shape Digitizing Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3,
+              "order": 1
+            },
+            {
+              "name": "mSelectionToolBar",
+              "label": "Selection Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mMeshToolBar",
+              "label": "Mesh Digitizing Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3,
+              "order": 1
+            },
+            {
+              "name": "mAnnotationsToolBar",
+              "label": "Annotations Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "QWorkspaceSwitcherToolbar",
+              "label": "QWorkspace Switcher",
+              "visible": true,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            }
+          ]
+        }
+      },
+      "button_style": "text",
+      "icon": "",
+      "show_menu_bar": true,
+      "dropdown_menus": []
+    },
+    {
+      "name": "Modélisation",
+      "plugins": {
+        "processing": {
+          "docks": [
+            {
+              "name": "ResultsViewer",
+              "label": "Results Viewer",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "ProcessingToolbox",
+              "label": "Processing Toolbox",
+              "visible": false,
+              "area": "right"
+            }
+          ],
+          "toolbars": []
+        },
+        "georelai": {
+          "docks": [
+            {
+              "name": "domains_edition",
+              "label": "Edition des domaines",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "altimetric_reference_change",
+              "label": "Changement de référentiel altimétrique",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "import_bornes",
+              "label": "Import des bornes",
+              "visible": true,
+              "area": "right"
+            },
+            {
+              "name": "import_bathy_point",
+              "label": "Import des points bathy",
+              "visible": true,
+              "area": "right"
+            },
+            {
+              "name": "import_profil_points",
+              "label": "Création profil points",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "import_profil_long_from_files",
+              "label": "Import profils en long",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "edition_profil",
+              "label": "Edition des profils",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "etendre_profil_trace",
+              "label": "Étendre les traces de profil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "compute_profil_point_from_mesh",
+              "label": "Création profils point depuis MNT",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "update_profil_trace",
+              "label": "Mettre à jour les traces de profil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "create_sections",
+              "label": "Positionner les sections",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "axe_auto",
+              "label": "Axe auto",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "thalweg_limits",
+              "label": "Limites de Thalweg",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "lateral_limits",
+              "label": "Limites latérales",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "axe_hydro_limits",
+              "label": "Limites axe hydraulique",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "compute_profil_long",
+              "label": "Tracer limites",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "limite_from_profil_long",
+              "label": "Pré-positionner les limites",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "calcul_casier_loi",
+              "label": "Calculer PCS",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "vue_casier_loi",
+              "label": "Visualiser PCS",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "compute_seuil_point",
+              "label": "Convertir Trace Seuils 3D",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "compute_seuil_elem",
+              "label": "Construire éléments de seuil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "vue_seuil",
+              "label": "Visualiser seuil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "create_emprise",
+              "label": "Créer les emprises de semis de points",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "create_branch",
+              "label": "Créer les branches",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "export_bathy",
+              "label": "Export bathy",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "logs",
+              "label": "Logs",
+              "visible": false,
+              "area": "bottom"
+            },
+            {
+              "name": "calcul_crue",
+              "label": "Calcul Crue",
+              "visible": false,
+              "area": "bottom"
+            },
+            {
+              "name": "explorateur_emh",
+              "label": "Explorateur EMH",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "noeud_viewer",
+              "label": "Noeud",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "casier_viewer",
+              "label": "Casier",
+              "visible": false,
+              "area": "right"
+            }
+          ],
+          "toolbars": [
+            {
+              "name": "GeorelaiToolbar",
+              "label": "GeorelaiToolbar",
+              "visible": true,
+              "area": "top",
+              "line": 2
+            }
+          ]
+        },
+        "__qgis_native__": {
+          "docks": [
+            {
+              "name": "undo/redo dock",
+              "label": "Undo/Redo",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "AdvancedDigitizingTools",
+              "label": "Advanced Digitizing",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "StatisticalSummaryDockWidget",
+              "label": "Statistics",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "BookmarksDockWidget",
+              "label": "Spatial Bookmark Manager",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "VertexEditor",
+              "label": "Vertex Editor",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "Layers",
+              "label": "Layers",
+              "visible": true,
+              "area": "left"
+            },
+            {
+              "name": "LayerOrder",
+              "label": "Layer Order",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "Overview",
+              "label": "Overview",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "QgsGeometryValidationDockBase",
+              "label": "Geometry Validation",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "LayerStyling",
+              "label": "Layer Styling",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "DevTools",
+              "label": "Debugging/Development Tools",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "Browser",
+              "label": "Browser",
+              "visible": true,
+              "area": "left"
+            },
+            {
+              "name": "Temporal Controller",
+              "label": "Temporal Controller",
+              "visible": false,
+              "area": "top"
+            },
+            {
+              "name": "Browser2",
+              "label": "Browser (2)",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "GPSInformation",
+              "label": "GPS Information",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "MessageLog",
+              "label": "Log Messages",
+              "visible": false,
+              "area": "bottom"
+            },
+            {
+              "name": "theTileScaleDock",
+              "label": "Tile Scale",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "PythonConsole",
+              "label": "Python Console",
+              "visible": false,
+              "area": "bottom"
+            }
+          ],
+          "toolbars": []
+        },
+        "QWorkspaceSwitcher": {
+          "docks": [],
+          "toolbars": [
+            {
+              "name": "mFileToolBar",
+              "label": "Project Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 1
+            },
+            {
+              "name": "mLayerToolBar",
+              "label": "Manage Layers Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1
+            },
+            {
+              "name": "mDigitizeToolBar",
+              "label": "Digitizing Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 1
+            },
+            {
+              "name": "mMapNavToolBar",
+              "label": "Map Navigation Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1
+            },
+            {
+              "name": "mAttributesToolBar",
+              "label": "Attributes Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1
+            },
+            {
+              "name": "mPluginToolBar",
+              "label": "Plugins Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 2
+            },
+            {
+              "name": "mHelpToolBar",
+              "label": "Help Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 2
+            },
+            {
+              "name": "mRasterToolBar",
+              "label": "Raster Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3
+            },
+            {
+              "name": "mLabelToolBar",
+              "label": "Label Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 2
+            },
+            {
+              "name": "mVectorToolBar",
+              "label": "Vector Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 2
+            },
+            {
+              "name": "mDatabaseToolBar",
+              "label": "Database Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3
+            },
+            {
+              "name": "mWebToolBar",
+              "label": "Web Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 2
+            },
+            {
+              "name": "mSnappingToolBar",
+              "label": "Snapping Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3
+            },
+            {
+              "name": "mDataSourceManagerToolBar",
+              "label": "Data Source Manager Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 2
+            },
+            {
+              "name": "mShapeDigitizeToolBar",
+              "label": "Shape Digitizing Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3
+            },
+            {
+              "name": "mSelectionToolBar",
+              "label": "Selection Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1
+            },
+            {
+              "name": "mMeshToolBar",
+              "label": "Mesh Digitizing Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3
+            },
+            {
+              "name": "mAnnotationsToolBar",
+              "label": "Annotations Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 3
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1
+            }
+          ]
+        }
+      },
+      "button_style": "text",
+      "icon": "",
+      "show_menu_bar": true,
+      "dropdown_menus": []
+    },
+    {
+      "name": "test",
+      "plugins": {
+        "georelai": {
+          "docks": [
+            {
+              "name": "domains_edition",
+              "label": "Edition des domaines",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "altimetric_reference_change",
+              "label": "Changement de référentiel altimétrique",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "import_bornes",
+              "label": "Import des bornes",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "import_bathy_point",
+              "label": "Import des points bathy",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "import_profil_points",
+              "label": "Création profil points",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "import_profil_long_from_files",
+              "label": "Import profils en long",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "edition_profil",
+              "label": "Edition des profils",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "etendre_profil_trace",
+              "label": "Étendre les traces de profil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "compute_profil_point_from_mesh",
+              "label": "Création profils point depuis MNT",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "update_profil_trace",
+              "label": "Mettre à jour les traces de profil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "create_sections",
+              "label": "Positionner les sections",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "axe_auto",
+              "label": "Axe auto",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "thalweg_limits",
+              "label": "Limites de Thalweg",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "lateral_limits",
+              "label": "Limites latérales",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "axe_hydro_limits",
+              "label": "Limites axe hydraulique",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "compute_profil_long",
+              "label": "Tracer limites",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "limite_from_profil_long",
+              "label": "Pré-positionner les limites",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "calcul_casier_loi",
+              "label": "Calculer PCS",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "vue_casier_loi",
+              "label": "Visualiser PCS",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "compute_seuil_point",
+              "label": "Convertir Trace Seuils 3D",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "compute_seuil_elem",
+              "label": "Construire éléments de seuil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "vue_seuil",
+              "label": "Visualiser seuil",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "create_emprise",
+              "label": "Créer les emprises de semis de points",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "create_branch",
+              "label": "Créer les branches",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "export_bathy",
+              "label": "Export bathy",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "logs",
+              "label": "Logs",
+              "visible": false,
+              "area": "bottom"
+            },
+            {
+              "name": "calcul_crue",
+              "label": "Calcul Crue",
+              "visible": false,
+              "area": "bottom"
+            },
+            {
+              "name": "explorateur_emh",
+              "label": "Explorateur EMH",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "noeud_viewer",
+              "label": "Noeud",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "casier_viewer",
+              "label": "Casier",
+              "visible": false,
+              "area": "right"
+            }
+          ],
+          "toolbars": [
+            {
+              "name": "GeorelaiToolbar",
+              "label": "GeorelaiToolbar",
+              "visible": true,
+              "area": "top",
+              "line": 2,
+              "order": 1
+            }
+          ]
+        },
+        "processing": {
+          "docks": [
+            {
+              "name": "ResultsViewer",
+              "label": "Results Viewer",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "ProcessingToolbox",
+              "label": "Processing Toolbox",
+              "visible": false,
+              "area": "right"
+            }
+          ],
+          "toolbars": []
+        },
+        "__qgis_native__": {
+          "docks": [
+            {
+              "name": "AdvancedDigitizingTools",
+              "label": "Advanced Digitizing",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "Layers",
+              "label": "Layers",
+              "visible": true,
+              "area": "left"
+            },
+            {
+              "name": "undo/redo dock",
+              "label": "Undo/Redo",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "StatisticalSummaryDockWidget",
+              "label": "Statistics",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "BookmarksDockWidget",
+              "label": "Spatial Bookmark Manager",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "VertexEditor",
+              "label": "Vertex Editor",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "LayerOrder",
+              "label": "Layer Order",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "Overview",
+              "label": "Overview",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "QgsGeometryValidationDockBase",
+              "label": "Geometry Validation",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "LayerStyling",
+              "label": "Layer Styling",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "DevTools",
+              "label": "Debugging/Development Tools",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "Temporal Controller",
+              "label": "Temporal Controller",
+              "visible": false,
+              "area": "top"
+            },
+            {
+              "name": "Browser2",
+              "label": "Browser (2)",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "GPSInformation",
+              "label": "GPS Information",
+              "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "MessageLog",
+              "label": "Log Messages",
+              "visible": false,
+              "area": "bottom"
+            },
+            {
+              "name": "theTileScaleDock",
+              "label": "Tile Scale",
+              "visible": false,
+              "area": "right"
+            },
+            {
+              "name": "Browser",
+              "label": "Browser",
+              "visible": true,
+              "area": "left"
+            }
+          ],
+          "toolbars": [
+            {
+              "name": "mFileToolBar",
+              "label": "Project Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 1,
+              "order": 2
+            },
+            {
+              "name": "mLayerToolBar",
+              "label": "Manage Layers Toolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 2
+            },
+            {
+              "name": "mDigitizeToolBar",
+              "label": "Digitizing Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mAdvancedDigitizeToolBar",
+              "label": "Advanced Digitizing Toolbar",
+              "visible": true,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mMapNavToolBar",
+              "label": "Map Navigation Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mAttributesToolBar",
+              "label": "Attributes Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mPluginToolBar",
+              "label": "Plugins Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mHelpToolBar",
+              "label": "Help Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mRasterToolBar",
+              "label": "Raster Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mLabelToolBar",
+              "label": "Label Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mVectorToolBar",
+              "label": "Vector Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mDatabaseToolBar",
+              "label": "Database Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mWebToolBar",
+              "label": "Web Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mSnappingToolBar",
+              "label": "Snapping Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mDataSourceManagerToolBar",
+              "label": "Data Source Manager Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mShapeDigitizeToolBar",
+              "label": "Shape Digitizing Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mSelectionToolBar",
+              "label": "Selection Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mMeshToolBar",
+              "label": "Mesh Digitizing Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mAnnotationsToolBar",
+              "label": "Annotations Toolbar",
+              "visible": false,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            }
+          ]
+        },
+        "QWorkspaceSwitcher": {
+          "docks": [],
+          "toolbars": [
+            {
+              "name": "QWorkspaceSwitcherToolbar",
+              "label": "QWorkspace Switcher",
+              "visible": true,
+              "area": "top",
+              "line": 2,
+              "order": 2
+            }
+          ]
+        }
+      },
+      "button_style": "text",
+      "icon": "",
+      "show_menu_bar": true,
+      "dropdown_menus": []
+    }
+  ]
+}

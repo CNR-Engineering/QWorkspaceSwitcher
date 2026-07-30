@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Program Files/**)",
+      "Read(//c//**)",
+      "Bash(where.exe qgis *)"
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+[general]
+name            = QWorkspaceSwitcher
+description     = Create, manage and apply named QGIS interface
+                  configurations (workspaces). Switch between different
+                  working environments in one click from the toolbar.
+about           = QWorkspace Switcher allows QGIS users to create, save
+                  and apply named interface configurations called workspaces.
+                  Each workspace defines which panels (QDockWidget), toolbars
+                  (QToolBar) and menus are visible, and how they are organized
+                  in the QGIS main window.
+
+                  Key features:
+                  - Create workspaces by capturing the current QGIS interface
+                  - Apply a workspace in one click from the toolbar
+                  - Configure button style (text, icon, icon+text, text+icon)
+                  - Assign a custom icon to each workspace
+                  - Add dropdown menus from other plugins per workspace
+                  - Show or hide the QGIS menu bar per workspace
+                  - Declarative .psp.json system for third-party plugins
+                  - Blacklist system for deleted plugin workspaces
+                  - Export/import workspace configuration file
+                  - Emergency shortcut Ctrl+Shift+M to restore menu bar
+
+                  Originally developed at CNR (Compagnie Nationale du Rhône)
+                  for hydraulic modeling workflows. Designed as a generic,
+                  domain-independent tool for any QGIS user or organization.
+icon = icon.png
+category    = Plugins
+tags        = interface, workspace, ergonomics, panels, toolbars,
+              customization, layout, perspectives, workflow, switch,
+              productivity, ui, user interface, dock, toolbar
+
+# versioning
+
+version              = 1.0.0
+qgisMinimumVersion   = 3.0
+qgisMaximumVersion   = 3.99
+experimental        = False
+deprecated          = False
+hasProcessingProvider = no
+
+# credits and contact
+
+author  = Adnan Benaboud — Compagnie Nationale du Rhône (CNR)
+email   = adnanbenaboud5@gmail.com
+homepage    = https://github.com/AdnanBenaboud/QWorkspaceSwitcher
+repository  = https://github.com/AdnanBenaboud/QWorkspaceSwitcher
+tracker     = https://github.com/AdnanBenaboud/QWorkspaceSwitcher/issues
+
+
+license = BSD-2-Clause
+
+changelog = 1.0.0 (2026)
+            - First stable release
+            - Create, modify, apply and delete workspaces
+            - Capture current QGIS interface state as workspace
+            - Declarative .psp.json system for third-party plugin integration
+            - Toolbar with one configurable button per workspace
+            - Button styles: text, icon, icon_text, text_icon
+            - Custom icon support per workspace (PNG, SVG, JPG, ICO)
+            - Dropdown menu support per workspace
+            - Show/hide QGIS menu bar per workspace
+            - Blacklist system for deleted plugin workspaces
+            - Export workspace configuration to JSON file
+            - Emergency shortcut Ctrl+Shift+M to restore menu bar
+            - Automatic detection of third-party plugin widgets
+            - Priority merge system: user > plugin > default
+            - QFileSystemWatcher for external file change detection
+            - Rename workspace without losing configuration
+            - Duplicate workspace functionality
