@@ -128,7 +128,7 @@ class DockApplicator:
         Re-anchors the dock if it is floating before placing it.
 
         :param main_win: QGIS main window.
-        :param area: Qt area constant (e.g. ``Qt.LeftDockWidgetArea``).
+        :param area: Qt area constant (e.g. ``Qt.DockWidgetArea.LeftDockWidgetArea``).
         :param dock: Dock to place.
         :type dock: QDockWidget
         """
@@ -171,10 +171,10 @@ class DockApplicator:
         dock1.setVisible(True)
 
         # Split orientation based on area
-        if area in (Qt.LeftDockWidgetArea, Qt.RightDockWidgetArea):
-            main_win.splitDockWidget(dock1, dock2, Qt.Vertical)
+        if area in (Qt.DockWidgetArea.LeftDockWidgetArea, Qt.DockWidgetArea.RightDockWidgetArea):
+            main_win.splitDockWidget(dock1, dock2, Qt.Orientation.Vertical)
         else:
-            main_win.splitDockWidget(dock1, dock2, Qt.Horizontal)
+            main_win.splitDockWidget(dock1, dock2, Qt.Orientation.Horizontal)
 
         dock2.setVisible(True)
 

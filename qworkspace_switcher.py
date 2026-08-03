@@ -208,7 +208,7 @@ class QWorkspaceSwitcher:
         - ``icon`` → icon only.
         - ``icon_text`` → icon on the left + text.
         - ``text_icon`` → text on the left + icon on the right
-          (via ``Qt.RightToLeft``).
+          (via ``Qt.LayoutDirection.RightToLeft``).
 
         **Dropdown menu:**
 
@@ -246,28 +246,28 @@ class QWorkspaceSwitcher:
 
             # Display style
             style_map = {
-                "icon":      Qt.ToolButtonIconOnly,
-                "icon_text": Qt.ToolButtonTextBesideIcon,
-                "text":      Qt.ToolButtonTextOnly,
-                "text_icon": Qt.ToolButtonTextBesideIcon,
+                "icon":      Qt.ToolButtonStyle.ToolButtonIconOnly,
+                "icon_text": Qt.ToolButtonStyle.ToolButtonTextBesideIcon,
+                "text":      Qt.ToolButtonStyle.ToolButtonTextOnly,
+                "text_icon": Qt.ToolButtonStyle.ToolButtonTextBesideIcon,
             }
             btn.setToolButtonStyle(
-                style_map.get(style, Qt.ToolButtonTextOnly)
+                style_map.get(style, Qt.ToolButtonStyle.ToolButtonTextOnly)
             )
 
             # text_icon → icon on the right via RTL direction
             if style == "text_icon":
-                btn.setLayoutDirection(Qt.RightToLeft)
+                btn.setLayoutDirection(Qt.LayoutDirection.RightToLeft)
             else:
-                btn.setLayoutDirection(Qt.LeftToRight)
+                btn.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
 
             # Dropdown or simple button mode
             if has_dropdown:
                 menu = self._build_perspective_menu(name)
                 btn.setMenu(menu)
-                btn.setPopupMode(QToolButton.MenuButtonPopup)
+                btn.setPopupMode(QToolButton.ToolButtonPopupMode.MenuButtonPopup)
             else:
-                btn.setPopupMode(QToolButton.DelayedPopup)
+                btn.setPopupMode(QToolButton.ToolButtonPopupMode.DelayedPopup)
 
             btn.clicked.connect(
                 lambda checked, n=name: self.engine.apply(n)
@@ -475,7 +475,7 @@ class QWorkspaceSwitcher:
         self.run()
         if self.main_window:
             items = self.main_window.listPerspectives.findItems(
-                name, Qt.MatchExactly
+                name, Qt.MatchFlag.MatchExactly
             )
             if items:
                 self.main_window.listPerspectives.setCurrentItem(
@@ -516,9 +516,9 @@ class QWorkspaceSwitcher:
         reply = QMessageBox.question(
             None, "Delete workspace",
             f"Delete workspace '{name}'?",
-            QMessageBox.Yes | QMessageBox.No
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         )
-        if reply == QMessageBox.Yes:
+        if reply == QMessageBox.StandardButton.Yes:
             self.engine.delete(name)
             self._refresh_toolbar()
             if self.main_window:

@@ -1,9 +1,10 @@
 # QWorkspace Switcher — QGIS Plugin
 
-![QGIS](https://img.shields.io/badge/QGIS-3.x-green)
+![QGIS](https://img.shields.io/badge/QGIS-3.x%20%7C%204.x-green)
 ![License](https://img.shields.io/badge/license-BSD--2--Clause-blue)
 ![Version](https://img.shields.io/badge/version-1.0.0-orange)
 ![Python](https://img.shields.io/badge/python-3.x-yellow)
+[![QGIS Plugin Repository](https://img.shields.io/badge/QGIS%20Plugin%20Repository-QWorkspaceSwitcher-589632)](https://plugins.qgis.org/plugins/QWorkspaceSwitcher/)
 
 A QGIS plugin to create, manage and apply named interface
 configurations called **workspaces**. Switch between different
@@ -84,6 +85,9 @@ Plugins → Manage and Install Plugins →
 Search "QWorkspace Switcher" → Install
 ```
 
+Also listed on the
+[official QGIS Plugin Repository](https://plugins.qgis.org/plugins/QWorkspaceSwitcher/).
+
 ### Manual installation
 
 1. Download the latest release from
@@ -101,7 +105,7 @@ Search "QWorkspace Switcher" → Install
 
 ### Requirements
 
-- QGIS 3.0 or later
+- QGIS 3.0 or later (including QGIS 4.x / PyQt6)
 - Python 3.x
 - PyQt5 (included with QGIS)
 

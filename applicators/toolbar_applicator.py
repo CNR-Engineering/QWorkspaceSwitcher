@@ -73,10 +73,10 @@ class ToolbarApplicator:
 
     #: String → Qt toolbar area constant mapping.
     AREA_MAP = {
-        "top":    Qt.TopToolBarArea,
-        "bottom": Qt.BottomToolBarArea,
-        "left":   Qt.LeftToolBarArea,
-        "right":  Qt.RightToolBarArea,
+        "top":    Qt.ToolBarArea.TopToolBarArea,
+        "bottom": Qt.ToolBarArea.BottomToolBarArea,
+        "left":   Qt.ToolBarArea.LeftToolBarArea,
+        "right":  Qt.ToolBarArea.RightToolBarArea,
     }
 
     def __init__(self, discovery):
@@ -192,7 +192,7 @@ class ToolbarApplicator:
 
         # Save position of QWorkspaceSwitcherToolbar
         pm_toolbar = None
-        pm_area    = Qt.TopToolBarArea
+        pm_area    = Qt.ToolBarArea.TopToolBarArea
         for tb in main_win.findChildren(QToolBar):
             if tb.objectName() == "QWorkspaceSwitcherToolbar":
                 pm_toolbar = tb
@@ -214,7 +214,7 @@ class ToolbarApplicator:
         # actually starts, making line/order edits look like they
         # have no effect even though they were applied correctly.
         for area_str in area_lines:
-            area = self.AREA_MAP.get(area_str, Qt.TopToolBarArea)
+            area = self.AREA_MAP.get(area_str, Qt.ToolBarArea.TopToolBarArea)
             for tb in main_win.findChildren(QToolBar):
                 if tb in all_toolbars:
                     continue
@@ -237,7 +237,7 @@ class ToolbarApplicator:
         # result is deterministic instead of depending on dict
         # iteration order.
         for area_str, lines in area_lines.items():
-            area = self.AREA_MAP.get(area_str, Qt.TopToolBarArea)
+            area = self.AREA_MAP.get(area_str, Qt.ToolBarArea.TopToolBarArea)
             for line_num in sorted(lines.keys()):
                 toolbars_in_line = sorted(
                     lines[line_num],
@@ -261,7 +261,7 @@ class ToolbarApplicator:
         # it, instead of keeping the separate line it's always had.
         if pm_toolbar and is_valid(pm_toolbar):
             pm_area_has_others = any(
-                self.AREA_MAP.get(area_str, Qt.TopToolBarArea) == pm_area
+                self.AREA_MAP.get(area_str, Qt.ToolBarArea.TopToolBarArea) == pm_area
                 for area_str in area_lines
             )
             main_win.addToolBar(pm_area, pm_toolbar)

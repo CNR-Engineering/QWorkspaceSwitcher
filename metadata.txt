@@ -24,6 +24,8 @@ about           = QWorkspace Switcher allows QGIS users to create, save
                   Originally developed at CNR (Compagnie Nationale du Rhône)
                   for hydraulic modeling workflows. Designed as a generic,
                   domain-independent tool for any QGIS user or organization.
+
+                  GitHub: https://github.com/AdnanBenaboud/QWorkspaceSwitcher
 icon = icon.png
 category    = Plugins
 tags        = interface, workspace, ergonomics, panels, toolbars,
@@ -34,7 +36,7 @@ tags        = interface, workspace, ergonomics, panels, toolbars,
 
 version              = 1.0.0
 qgisMinimumVersion   = 3.0
-qgisMaximumVersion   = 3.99
+qgisMaximumVersion   = 4.99
 experimental        = False
 deprecated          = False
 hasProcessingProvider = no

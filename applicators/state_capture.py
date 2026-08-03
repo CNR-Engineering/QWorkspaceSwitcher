@@ -209,12 +209,12 @@ class StateCapture:
             # → (2, 1)  first toolbar on the second line
         """
         area_map = {
-            "top":    Qt.TopToolBarArea,
-            "bottom": Qt.BottomToolBarArea,
-            "left":   Qt.LeftToolBarArea,
-            "right":  Qt.RightToolBarArea,
+            "top":    Qt.ToolBarArea.TopToolBarArea,
+            "bottom": Qt.ToolBarArea.BottomToolBarArea,
+            "left":   Qt.ToolBarArea.LeftToolBarArea,
+            "right":  Qt.ToolBarArea.RightToolBarArea,
         }
-        area = area_map.get(area_str, Qt.TopToolBarArea)
+        area = area_map.get(area_str, Qt.ToolBarArea.TopToolBarArea)
 
         # Visible toolbars in the same area, in reading order
         same_area = [

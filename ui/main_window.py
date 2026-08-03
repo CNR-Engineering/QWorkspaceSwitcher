@@ -198,11 +198,11 @@ class MainWindow(QDialog, FORM_CLASS):
         """
         Enable or disable icon selection widgets.
 
-        :param state: Checkbox state (``Qt.Checked`` or
-            ``Qt.Unchecked``).
+        :param state: Checkbox state (``Qt.CheckState.Checked`` or
+            ``Qt.CheckState.Unchecked``).
         :type state: int
         """
-        enabled = state == Qt.Checked
+        enabled = state == Qt.CheckState.Checked
         self.comboBox_emplacement.setEnabled(enabled)
         self.pushButton_importIcon.setEnabled(enabled)
         if not enabled:
@@ -216,18 +216,18 @@ class MainWindow(QDialog, FORM_CLASS):
 
         Unchecks all menus when the checkbox is disabled.
 
-        :param state: Checkbox state (``Qt.Checked`` or
-            ``Qt.Unchecked``).
+        :param state: Checkbox state (``Qt.CheckState.Checked`` or
+            ``Qt.CheckState.Unchecked``).
         :type state: int
         """
-        self.treeWidget_menu.setEnabled(state == Qt.Checked)
-        if state != Qt.Checked:
+        self.treeWidget_menu.setEnabled(state == Qt.CheckState.Checked)
+        if state != Qt.CheckState.Checked:
             self.treeWidget_menu.blockSignals(True)
             for i in range(self.treeWidget_menu.topLevelItemCount()):
                 plugin_item = self.treeWidget_menu.topLevelItem(i)
-                plugin_item.setCheckState(0, Qt.Unchecked)
+                plugin_item.setCheckState(0, Qt.CheckState.Unchecked)
                 for j in range(plugin_item.childCount()):
-                    plugin_item.child(j).setCheckState(0, Qt.Unchecked)
+                    plugin_item.child(j).setCheckState(0, Qt.CheckState.Unchecked)
             self.treeWidget_menu.blockSignals(False)
 
     def _on_choose_icon(self):
@@ -310,7 +310,7 @@ class MainWindow(QDialog, FORM_CLASS):
 
         if current_name:
             items = self.listPerspectives.findItems(
-                current_name, Qt.MatchExactly
+                current_name, Qt.MatchFlag.MatchExactly
             )
             if items:
                 self.listPerspectives.blockSignals(True)
@@ -374,11 +374,11 @@ class MainWindow(QDialog, FORM_CLASS):
 
             plugin_item = QTreeWidgetItem(self.treeDocks)
             plugin_item.setText(0, plugin_data["display_name"])
-            plugin_item.setData(0, Qt.UserRole, plugin_name)
+            plugin_item.setData(0, Qt.ItemDataRole.UserRole, plugin_name)
             plugin_item.setFlags(
-                plugin_item.flags() | Qt.ItemIsUserCheckable
+                plugin_item.flags() | Qt.ItemFlag.ItemIsUserCheckable
             )
-            plugin_item.setCheckState(0, Qt.Unchecked)
+            plugin_item.setCheckState(0, Qt.CheckState.Unchecked)
             plugin_item.setExpanded(True)
 
             for dock_info in docks:
@@ -437,11 +437,11 @@ class MainWindow(QDialog, FORM_CLASS):
 
             plugin_item = QTreeWidgetItem(self.treeToolbars)
             plugin_item.setText(0, plugin_data["display_name"])
-            plugin_item.setData(0, Qt.UserRole, plugin_name)
+            plugin_item.setData(0, Qt.ItemDataRole.UserRole, plugin_name)
             plugin_item.setFlags(
-                plugin_item.flags() | Qt.ItemIsUserCheckable
+                plugin_item.flags() | Qt.ItemFlag.ItemIsUserCheckable
             )
-            plugin_item.setCheckState(0, Qt.Unchecked)
+            plugin_item.setCheckState(0, Qt.CheckState.Unchecked)
             plugin_item.setExpanded(True)
 
             for tb_info in visible_toolbars:
@@ -451,8 +451,8 @@ class MainWindow(QDialog, FORM_CLASS):
 
                 child = QTreeWidgetItem(plugin_item)
                 child.setText(0, tb_info["label"])
-                child.setData(0, Qt.UserRole, tb_info["name"])
-                child.setData(1, Qt.UserRole, "toolbar")
+                child.setData(0, Qt.ItemDataRole.UserRole, tb_info["name"])
+                child.setData(1, Qt.ItemDataRole.UserRole, "toolbar")
 
                 spinbox = QSpinBox()
                 spinbox.setMinimum(1)
@@ -470,29 +470,29 @@ class MainWindow(QDialog, FORM_CLASS):
                 )
                 self.treeToolbars.setItemWidget(child, 2, order_spinbox)
 
-                child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
+                child.setFlags(child.flags() | Qt.ItemFlag.ItemIsUserCheckable)
 
                 # ← Cocher directement selon visible dans saved
                 if perspective_data and saved:
-                    state = Qt.Checked if saved.get("visible", True) \
-                            else Qt.Unchecked
+                    state = Qt.CheckState.Checked if saved.get("visible", True) \
+                            else Qt.CheckState.Unchecked
                 else:
                     # Pas de données → utiliser l'état actuel de la toolbar
-                    state = Qt.Checked if tb_info.get("visible", False) \
-                            else Qt.Unchecked
+                    state = Qt.CheckState.Checked if tb_info.get("visible", False) \
+                            else Qt.CheckState.Unchecked
                 child.setCheckState(0, state)
 
             # Mettre à jour la checkbox parent
             checked_count = sum(
                 1 for j in range(plugin_item.childCount())
-                if plugin_item.child(j).checkState(0) == Qt.Checked
+                if plugin_item.child(j).checkState(0) == Qt.CheckState.Checked
             )
             if checked_count == 0:
-                plugin_item.setCheckState(0, Qt.Unchecked)
+                plugin_item.setCheckState(0, Qt.CheckState.Unchecked)
             elif checked_count == plugin_item.childCount():
-                plugin_item.setCheckState(0, Qt.Checked)
+                plugin_item.setCheckState(0, Qt.CheckState.Checked)
             else:
-                plugin_item.setCheckState(0, Qt.PartiallyChecked)
+                plugin_item.setCheckState(0, Qt.CheckState.PartiallyChecked)
 
         self.treeToolbars.blockSignals(False)
         self.treeToolbars.itemChanged.connect(self._on_toolbar_item_changed)
@@ -502,7 +502,7 @@ class MainWindow(QDialog, FORM_CLASS):
         Fill ``treeWidget_menu`` from the plugin registry.
 
         Creates one parent node per plugin and one child node
-        per menu. Stores the plugin name in ``Qt.UserRole + 1``
+        per menu. Stores the plugin name in ``Qt.ItemDataRole.UserRole + 1``
         of each child node for easy retrieval when saving.
         """
         self.treeWidget_menu.clear()
@@ -519,20 +519,20 @@ class MainWindow(QDialog, FORM_CLASS):
 
             plugin_item = QTreeWidgetItem(self.treeWidget_menu)
             plugin_item.setText(0, plugin_data["display_name"])
-            plugin_item.setData(0, Qt.UserRole, plugin_name)
+            plugin_item.setData(0, Qt.ItemDataRole.UserRole, plugin_name)
             plugin_item.setFlags(
-                plugin_item.flags() | Qt.ItemIsUserCheckable
+                plugin_item.flags() | Qt.ItemFlag.ItemIsUserCheckable
             )
-            plugin_item.setCheckState(0, Qt.Unchecked)
+            plugin_item.setCheckState(0, Qt.CheckState.Unchecked)
             plugin_item.setExpanded(True)
 
             for menu_info in menus:
                 child = QTreeWidgetItem(plugin_item)
                 child.setText(0, menu_info["label"])
-                child.setData(0, Qt.UserRole, menu_info["name"])
-                child.setData(1, Qt.UserRole, plugin_name)
-                child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
-                child.setCheckState(0, Qt.Unchecked)
+                child.setData(0, Qt.ItemDataRole.UserRole, menu_info["name"])
+                child.setData(1, Qt.ItemDataRole.UserRole, plugin_name)
+                child.setFlags(child.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+                child.setCheckState(0, Qt.CheckState.Unchecked)
 
         self.treeWidget_menu.itemChanged.connect(
             self._on_menu_item_changed
@@ -555,8 +555,8 @@ class MainWindow(QDialog, FORM_CLASS):
         child = QTreeWidgetItem(parent_item)
         child.setText(0, dock_info["label"])
         child.setText(1, "dock")
-        child.setData(0, Qt.UserRole, dock_info["name"])
-        child.setData(1, Qt.UserRole, "dock")
+        child.setData(0, Qt.ItemDataRole.UserRole, dock_info["name"])
+        child.setData(1, Qt.ItemDataRole.UserRole, "dock")
 
         combo = QComboBox()
         combo.addItems(["left", "right", "top", "bottom"])
@@ -565,8 +565,8 @@ class MainWindow(QDialog, FORM_CLASS):
             combo.setCurrentIndex(idx)
         self.treeDocks.setItemWidget(child, 2, combo)
 
-        child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
-        child.setCheckState(0, Qt.Unchecked)
+        child.setFlags(child.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+        child.setCheckState(0, Qt.CheckState.Unchecked)
         return child
 
     def _add_toolbar_item(self, parent_item: QTreeWidgetItem,
@@ -589,8 +589,8 @@ class MainWindow(QDialog, FORM_CLASS):
         """
         child = QTreeWidgetItem(parent_item)
         child.setText(0, tb_info["label"])
-        child.setData(0, Qt.UserRole, tb_info["name"])
-        child.setData(1, Qt.UserRole, "toolbar")
+        child.setData(0, Qt.ItemDataRole.UserRole, tb_info["name"])
+        child.setData(1, Qt.ItemDataRole.UserRole, "toolbar")
 
         spinbox = QSpinBox()
         spinbox.setMinimum(1)
@@ -599,8 +599,8 @@ class MainWindow(QDialog, FORM_CLASS):
         spinbox.setToolTip("Line in toolbar area")
         self.treeToolbars.setItemWidget(child, 1, spinbox)
 
-        child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
-        child.setCheckState(0, Qt.Unchecked)
+        child.setFlags(child.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+        child.setCheckState(0, Qt.CheckState.Unchecked)
         return child
 
     # ─────────────────────────────────────────────
@@ -692,31 +692,31 @@ class MainWindow(QDialog, FORM_CLASS):
             was just changed by the user.
         :type plugin_item: QTreeWidgetItem
         """
-        plugin_key = plugin_item.data(0, Qt.UserRole)
+        plugin_key = plugin_item.data(0, Qt.ItemDataRole.UserRole)
         state      = plugin_item.checkState(0)
         snap_key   = (id(tree), plugin_key)
 
         tree.blockSignals(True)
         try:
-            if state == Qt.Unchecked:
+            if state == Qt.CheckState.Unchecked:
                 self._root_snapshot[snap_key] = {
-                    plugin_item.child(j).data(0, Qt.UserRole)
+                    plugin_item.child(j).data(0, Qt.ItemDataRole.UserRole)
                     for j in range(plugin_item.childCount())
-                    if plugin_item.child(j).checkState(0) == Qt.Checked
+                    if plugin_item.child(j).checkState(0) == Qt.CheckState.Checked
                 }
                 for j in range(plugin_item.childCount()):
-                    plugin_item.child(j).setCheckState(0, Qt.Unchecked)
+                    plugin_item.child(j).setCheckState(0, Qt.CheckState.Unchecked)
             elif snap_key in self._root_snapshot:
                 previously_checked = self._root_snapshot[snap_key]
                 for j in range(plugin_item.childCount()):
                     child = plugin_item.child(j)
-                    if child.data(0, Qt.UserRole) in previously_checked:
-                        child.setCheckState(0, Qt.Checked)
+                    if child.data(0, Qt.ItemDataRole.UserRole) in previously_checked:
+                        child.setCheckState(0, Qt.CheckState.Checked)
             else:
                 # Never unchecked yet this session — nothing to
                 # restore, so behave like an ordinary select-all.
                 for j in range(plugin_item.childCount()):
-                    plugin_item.child(j).setCheckState(0, Qt.Checked)
+                    plugin_item.child(j).setCheckState(0, Qt.CheckState.Checked)
 
             # The raw click always lands on Checked/Unchecked — fix
             # the root's own display to match what actually happened
@@ -725,14 +725,14 @@ class MainWindow(QDialog, FORM_CLASS):
             total   = plugin_item.childCount()
             checked = sum(
                 1 for j in range(total)
-                if plugin_item.child(j).checkState(0) == Qt.Checked
+                if plugin_item.child(j).checkState(0) == Qt.CheckState.Checked
             )
             if checked == 0:
-                plugin_item.setCheckState(0, Qt.Unchecked)
+                plugin_item.setCheckState(0, Qt.CheckState.Unchecked)
             elif checked == total:
-                plugin_item.setCheckState(0, Qt.Checked)
+                plugin_item.setCheckState(0, Qt.CheckState.Checked)
             else:
-                plugin_item.setCheckState(0, Qt.PartiallyChecked)
+                plugin_item.setCheckState(0, Qt.CheckState.PartiallyChecked)
         finally:
             tree.blockSignals(False)
 
@@ -741,9 +741,9 @@ class MainWindow(QDialog, FORM_CLASS):
         """
         Update the checkbox state of a parent node based on its children.
 
-        - All checked → ``Qt.Checked``.
-        - None checked → ``Qt.Unchecked``.
-        - Partially checked → ``Qt.PartiallyChecked``.
+        - All checked → ``Qt.CheckState.Checked``.
+        - None checked → ``Qt.CheckState.Unchecked``.
+        - Partially checked → ``Qt.CheckState.PartiallyChecked``.
 
         :param tree: Tree containing the parent node.
         :param parent: Parent node to update.
@@ -752,15 +752,15 @@ class MainWindow(QDialog, FORM_CLASS):
         total   = parent.childCount()
         checked = sum(
             1 for i in range(total)
-            if parent.child(i).checkState(0) == Qt.Checked
+            if parent.child(i).checkState(0) == Qt.CheckState.Checked
         )
         tree.blockSignals(True)
         if checked == 0:
-            parent.setCheckState(0, Qt.Unchecked)
+            parent.setCheckState(0, Qt.CheckState.Unchecked)
         elif checked == total:
-            parent.setCheckState(0, Qt.Checked)
+            parent.setCheckState(0, Qt.CheckState.Checked)
         else:
-            parent.setCheckState(0, Qt.PartiallyChecked)
+            parent.setCheckState(0, Qt.CheckState.PartiallyChecked)
         tree.blockSignals(False)
 
     # ─────────────────────────────────────────────
@@ -850,12 +850,12 @@ class MainWindow(QDialog, FORM_CLASS):
             plugin_item = self.treeWidget_menu.topLevelItem(i)
             for j in range(plugin_item.childCount()):
                 child       = plugin_item.child(j)
-                menu_name   = child.data(0, Qt.UserRole)
-                plugin_name = child.data(1, Qt.UserRole)
+                menu_name   = child.data(0, Qt.ItemDataRole.UserRole)
+                plugin_name = child.data(1, Qt.ItemDataRole.UserRole)
                 if (plugin_name, menu_name) in selected_set:
-                    child.setCheckState(0, Qt.Checked)
+                    child.setCheckState(0, Qt.CheckState.Checked)
                 else:
-                    child.setCheckState(0, Qt.Unchecked)
+                    child.setCheckState(0, Qt.CheckState.Unchecked)
         self.treeWidget_menu.blockSignals(False)
 
         # ── Repopulate treeToolbars with saved lines ──
@@ -880,11 +880,11 @@ class MainWindow(QDialog, FORM_CLASS):
             }
             for j in range(plugin_item.childCount()):
                 child       = plugin_item.child(j)
-                widget_name = child.data(0, Qt.UserRole)
+                widget_name = child.data(0, Qt.ItemDataRole.UserRole)
                 saved       = saved_docks.get(widget_name)
                 if saved:
-                    state = Qt.Checked if saved.get("visible", True) \
-                            else Qt.Unchecked
+                    state = Qt.CheckState.Checked if saved.get("visible", True) \
+                            else Qt.CheckState.Unchecked
                     child.setCheckState(0, state)
                     combo = self.treeDocks.itemWidget(child, 2)
                     if combo:
@@ -892,7 +892,7 @@ class MainWindow(QDialog, FORM_CLASS):
                         if idx >= 0:
                             combo.setCurrentIndex(idx)
                 else:
-                    child.setCheckState(0, Qt.Unchecked)
+                    child.setCheckState(0, Qt.CheckState.Unchecked)
         self.treeDocks.blockSignals(False)
 
     # ─────────────────────────────────────────────
@@ -912,10 +912,10 @@ class MainWindow(QDialog, FORM_CLASS):
             tree.blockSignals(True)
             for i in range(tree.topLevelItemCount()):
                 plugin_item = tree.topLevelItem(i)
-                plugin_item.setCheckState(0, Qt.Unchecked)
+                plugin_item.setCheckState(0, Qt.CheckState.Unchecked)
                 for j in range(plugin_item.childCount()):
                     child = plugin_item.child(j)
-                    child.setCheckState(0, Qt.Unchecked)
+                    child.setCheckState(0, Qt.CheckState.Unchecked)
                     if tree == self.treeDocks:
                         combo = tree.itemWidget(child, 2)
                         if combo:
@@ -932,9 +932,9 @@ class MainWindow(QDialog, FORM_CLASS):
         self.treeWidget_menu.blockSignals(True)
         for i in range(self.treeWidget_menu.topLevelItemCount()):
             plugin_item = self.treeWidget_menu.topLevelItem(i)
-            plugin_item.setCheckState(0, Qt.Unchecked)
+            plugin_item.setCheckState(0, Qt.CheckState.Unchecked)
             for j in range(plugin_item.childCount()):
-                plugin_item.child(j).setCheckState(0, Qt.Unchecked)
+                plugin_item.child(j).setCheckState(0, Qt.CheckState.Unchecked)
         self.treeWidget_menu.blockSignals(False)
 
         # Reset configuration checkboxes
@@ -1042,7 +1042,7 @@ class MainWindow(QDialog, FORM_CLASS):
 
         # Update selection in the list
         items = self.listPerspectives.findItems(
-            new_name, Qt.MatchExactly
+            new_name, Qt.MatchFlag.MatchExactly
         )
         if items:
             self.listPerspectives.blockSignals(True)
@@ -1078,10 +1078,10 @@ class MainWindow(QDialog, FORM_CLASS):
             plugin_item = self.treeWidget_menu.topLevelItem(i)
             for j in range(plugin_item.childCount()):
                 child = plugin_item.child(j)
-                if child.checkState(0) == Qt.Checked:
+                if child.checkState(0) == Qt.CheckState.Checked:
                     selected.append({
-                        "plugin": child.data(1, Qt.UserRole),
-                        "menu":   child.data(0, Qt.UserRole),
+                        "plugin": child.data(1, Qt.ItemDataRole.UserRole),
+                        "menu":   child.data(0, Qt.ItemDataRole.UserRole),
                     })
         return selected
 
@@ -1148,7 +1148,7 @@ class MainWindow(QDialog, FORM_CLASS):
         self.perspectiveSaved.emit()
 
         items = self.listPerspectives.findItems(
-            name, Qt.MatchExactly
+            name, Qt.MatchFlag.MatchExactly
         )
         if items:
             self.listPerspectives.setCurrentItem(items[0])
@@ -1203,9 +1203,9 @@ class MainWindow(QDialog, FORM_CLASS):
         reply = QMessageBox.question(
             self, "Delete workspace",
             f"Delete workspace '{name}'?",
-            QMessageBox.Yes | QMessageBox.No
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         )
-        if reply == QMessageBox.Yes:
+        if reply == QMessageBox.StandardButton.Yes:
             self.engine.delete(name)
             self.inputName.clear()
             self.listPerspectives.blockSignals(True)
@@ -1252,8 +1252,8 @@ class MainWindow(QDialog, FORM_CLASS):
 
             for j in range(plugin_item.childCount()):
                 child       = plugin_item.child(j)
-                widget_name = child.data(0, Qt.UserRole)
-                visible     = child.checkState(0) == Qt.Checked
+                widget_name = child.data(0, Qt.ItemDataRole.UserRole)
+                visible     = child.checkState(0) == Qt.CheckState.Checked
                 combo       = self.treeDocks.itemWidget(child, 2)
                 area        = combo.currentText() if combo else "left"
 
@@ -1291,8 +1291,8 @@ class MainWindow(QDialog, FORM_CLASS):
 
             for j in range(plugin_item.childCount()):
                 child         = plugin_item.child(j)
-                widget_name   = child.data(0, Qt.UserRole)
-                visible       = child.checkState(0) == Qt.Checked
+                widget_name   = child.data(0, Qt.ItemDataRole.UserRole)
+                visible       = child.checkState(0) == Qt.CheckState.Checked
                 line_spinbox  = self.treeToolbars.itemWidget(child, 1)
                 line          = line_spinbox.value() if line_spinbox else 1
                 order_spinbox = self.treeToolbars.itemWidget(child, 2)

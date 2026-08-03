@@ -330,16 +330,16 @@ class PluginDiscovery:
         """
         Convert a Qt dock/toolbar area constant to a string.
 
-        :param area: Qt constant (e.g. ``Qt.LeftDockWidgetArea``).
+        :param area: Qt constant (e.g. ``Qt.DockWidgetArea.LeftDockWidgetArea``).
         :return: String among ``"left"``, ``"right"``, ``"top"``,
             ``"bottom"``. Returns ``"left"`` by default.
         :rtype: str
         """
         mapping = {
-            Qt.LeftDockWidgetArea:   "left",
-            Qt.RightDockWidgetArea:  "right",
-            Qt.TopDockWidgetArea:    "top",
-            Qt.BottomDockWidgetArea: "bottom",
+            Qt.DockWidgetArea.LeftDockWidgetArea:   "left",
+            Qt.DockWidgetArea.RightDockWidgetArea:  "right",
+            Qt.DockWidgetArea.TopDockWidgetArea:    "top",
+            Qt.DockWidgetArea.BottomDockWidgetArea: "bottom",
         }
         return mapping.get(area, "left")
 
@@ -351,15 +351,15 @@ class PluginDiscovery:
             ``"top"``, ``"bottom"``.
         :type area_str: str
         :return: Corresponding Qt constant.
-            Returns ``Qt.LeftDockWidgetArea`` by default.
+            Returns ``Qt.DockWidgetArea.LeftDockWidgetArea`` by default.
         """
         mapping = {
-            "left":   Qt.LeftDockWidgetArea,
-            "right":  Qt.RightDockWidgetArea,
-            "top":    Qt.TopDockWidgetArea,
-            "bottom": Qt.BottomDockWidgetArea,
+            "left":   Qt.DockWidgetArea.LeftDockWidgetArea,
+            "right":  Qt.DockWidgetArea.RightDockWidgetArea,
+            "top":    Qt.DockWidgetArea.TopDockWidgetArea,
+            "bottom": Qt.DockWidgetArea.BottomDockWidgetArea,
         }
-        return mapping.get(area_str, Qt.LeftDockWidgetArea)
+        return mapping.get(area_str, Qt.DockWidgetArea.LeftDockWidgetArea)
 
 
 # ─────────────────────────────────────────────────
