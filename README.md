@@ -134,7 +134,8 @@ switches instantly. The active workspace button appears pressed.
 2. Select the workspace in the list
 3. Modify panels, toolbars and menus via the three tabs:
    - **Panels** — select and position `QDockWidget`
-   - **Toolbars** — select and organize `QToolBar` by line
+   - **Toolbars** — select and organize `QToolBar` by line and,
+     within a line, by left-to-right order
    - **Menus** — select plugin menus for the dropdown button
 4. Click **Save**
 
@@ -345,6 +346,7 @@ and appear in the QWorkspace Switcher toolbar.
 | `button_style` | string | ✅ | `text`, `icon`, `icon_text`, `text_icon` |
 | `icon` | string | ❌ | Path to button icon file |
 | `show_menu_bar` | bool | ❌ | Show QGIS menu bar (default: `true`) |
+| `window_state` | string | ❌ | Base64 `QMainWindow.saveState()` blob, captured automatically. Opaque — restored as a geometry baseline (splitters, floating geometry, tab order) before `plugins` is applied, never overrides it. Not meant to be hand-written. |
 | `dropdown_menus` | list | ❌ | Menus to show in button dropdown |
 | `dropdown_menus[].plugin` | string | ✅ | Plugin name |
 | `dropdown_menus[].menu` | string | ✅ | Menu `objectName` |
@@ -357,14 +359,14 @@ and appear in the QWorkspace Switcher toolbar.
 | `toolbars[].label` | string | ✅ | Display label |
 | `toolbars[].visible` | bool | ✅ | Visibility in this workspace |
 | `toolbars[].area` | string | ✅ | `top`, `bottom`, `left`, `right` |
-| `toolbars[].line` | int | ✅ | Line number in area (1 to 5) |
-| `toolbars[].order` | int | ❌ | Position within the line, left/top to right/bottom (default: 1) |
+| `toolbars[].line` | int | ✅ | Line number in area (1 = first line; the UI caps this dynamically at one more than the highest line already in use in that area) |
+| `toolbars[].order` | int | ❌ | Position within the line, left/top to right/bottom — `0` = unordered/first (default: `1`) |
 
 ### Priority and merge rules
 
 When multiple `.psp.json` files are found, workspaces are
 merged according to the following priority:
-
+  
 ```
 CONFIG_DEFAULT          (lowest priority)
     ↓
@@ -500,7 +502,7 @@ Contributions are welcome! Please:
 ### Reporting issues
 
 Please use the
-[GitHub issue tracker](https://github.com/AdnanBenaboud/QWorkspaceSwitcher/issues)
+[GitHub issue tracker](https://github.com/CNR-Engineering/QWorkspaceSwitcher/issues)
 to report bugs or request features.
 
 ---

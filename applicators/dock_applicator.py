@@ -13,7 +13,8 @@ workspace configuration.
 
     1 dock  → normal placement (addDockWidget)
     2 docks → side by side or vertical split (splitDockWidget)
-    3 docks → tabbed layout (tabifyDockWidget)
+    3 docks → tabbed layout (tabifyDockWidget), stacking order
+              restored from each dock's "tab_order" (see CHANGE 4)
 
 :author: Adnan Benaboud — CNR
 """
@@ -186,12 +187,26 @@ class DockApplicator:
         tabified onto the first via ``tabifyDockWidget``.
         The first dock is brought to the foreground after tabification.
 
+        CHANGE 4 — ``group`` is sorted by each dock's saved
+        ``"tab_order"`` (ascending, ``0`` = frontmost, see
+        :meth:`~perspective_manager.applicators.state_capture.
+        StateCapture._compute_tab_order`) before any of the above
+        happens. That makes ``group[0]`` — the anchor used for both
+        placement and the final ``raise_()`` — the originally
+        frontmost dock, and the subsequent ``tabifyDockWidget()``
+        calls below reproduce the original tab sequence too, instead
+        of whatever order the JSON happened to list docks in.
+
         :param main_win: QGIS main window.
         :param area: Qt area constant.
         :param group: List of at least three entries
             ``{"dock": QDockWidget, ...}``.
         :type group: list[dict]
         """
+        group = sorted(
+            group, key=lambda entry: entry["config"].get("tab_order", 0)
+        )
+
         first_dock = group[0]["dock"]
         if not is_valid(first_dock):
             return

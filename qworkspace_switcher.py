@@ -151,6 +151,15 @@ class QWorkspaceSwitcher:
             "QWorkspace Switcher", self.action_open
         )
         if self.toolbar:
+            # removeToolBar() + setParent(None) detach the toolbar
+            # from the main window synchronously. deleteLater() alone
+            # only *schedules* deletion for a later event-loop pass —
+            # if something (e.g. Plugin Reloader) calls initGui()
+            # again before that pass runs, the old toolbar is still
+            # alive and still parented, so the new one gets created
+            # with a duplicate objectName ("QWorkspaceSwitcherToolbar").
+            self.iface.mainWindow().removeToolBar(self.toolbar)
+            self.toolbar.setParent(None)
             self.toolbar.deleteLater()
             self.toolbar = None
         if self.main_window:

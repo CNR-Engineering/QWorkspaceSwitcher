@@ -15,6 +15,11 @@ to apply workspaces on the QGIS interface.
 
     apply("Field survey")
         │
+        ├── Pass 0 — restoreState(window_state), if present
+        │       → geometry baseline only (splitters, floating
+        │         geometry, tab order) — never overrides what
+        │         the passes below decide
+        │
         ├── Pass 1 — _hide_all()
         │       → hides all docks and toolbars
         │
@@ -42,7 +47,7 @@ to apply workspaces on the QGIS interface.
 :author: Adnan Benaboud — CNR
 """
 
-from qgis.PyQt.QtCore import QObject, pyqtSignal, Qt
+from qgis.PyQt.QtCore import QObject, pyqtSignal, Qt, QByteArray
 from qgis.PyQt.QtWidgets import QDockWidget, QToolBar
 from qgis.utils import iface
 
@@ -289,8 +294,11 @@ class PerspectiveEngine(QObject):
         """
         Apply a workspace dictionary to the QGIS interface.
 
-        Performs four successive passes:
+        Performs, in order:
 
+        0. Restore ``window_state`` (CHANGE 2), if present — a
+           geometry baseline only, applied before anything else so
+           it never overrides the explicit passes that follow.
         1. Hide all docks and toolbars.
         2. Apply dock configuration.
         3. Apply toolbar configuration.
@@ -320,6 +328,31 @@ class PerspectiveEngine(QObject):
         main_win.setUpdatesEnabled(False)
 
         try:
+            # CHANGE 2 — restore the raw Qt window state (if this
+            # workspace has one) as a high-fidelity baseline BEFORE
+            # the 4 passes below: it recovers splitter sizes,
+            # floating geometry and tab order that the plugin's own
+            # area/line/order model can't represent, so the "QGIS"
+            # default perspective matches the original layout more
+            # closely.
+            #
+            # Deliberately restored FIRST, not after the 4 passes as
+            # originally proposed: doing it last would silently
+            # overwrite every perspective's explicit area/line/order/
+            # visibility on every apply (every capture stores a
+            # window_state), which would make Line/Order edits
+            # (CHANGE 3) appear to do nothing. Restoring it first
+            # means it only ever supplies a baseline — the passes
+            # below always have the final say.
+            window_state = data.get("window_state")
+            if window_state:
+                try:
+                    main_win.restoreState(
+                        QByteArray.fromBase64(window_state.encode("ascii"))
+                    )
+                except Exception as e:
+                    print(f"[Engine] Could not restore window_state: {e}")
+
             # Pass 1 — hide all
             self._hide_all()
 

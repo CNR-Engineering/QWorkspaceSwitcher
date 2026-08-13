@@ -25,7 +25,7 @@ about           = QWorkspace Switcher allows QGIS users to create, save
                   for hydraulic modeling workflows. Designed as a generic,
                   domain-independent tool for any QGIS user or organization.
 
-                  GitHub: https://github.com/AdnanBenaboud/QWorkspaceSwitcher
+                  GitHub: https://github.com/CNR-Engineering/QWorkspaceSwitcher
 icon = icon.png
 category    = Plugins
 tags        = interface, workspace, ergonomics, panels, toolbars,
@@ -34,7 +34,7 @@ tags        = interface, workspace, ergonomics, panels, toolbars,
 
 # versioning
 
-version              = 1.0.0
+version              = 2.0.0
 qgisMinimumVersion   = 3.0
 qgisMaximumVersion   = 4.99
 experimental        = False
@@ -45,14 +45,46 @@ hasProcessingProvider = no
 
 author  = Adnan Benaboud — Compagnie Nationale du Rhône (CNR)
 email   = adnanbenaboud5@gmail.com
-homepage    = https://github.com/AdnanBenaboud/QWorkspaceSwitcher
-repository  = https://github.com/AdnanBenaboud/QWorkspaceSwitcher
-tracker     = https://github.com/AdnanBenaboud/QWorkspaceSwitcher/issues
+homepage    = https://github.com/CNR-Engineering/QWorkspaceSwitcher
+repository  = https://github.com/CNR-Engineering/QWorkspaceSwitcher
+tracker     = https://github.com/CNR-Engineering/QWorkspaceSwitcher/issues
 
 
 license = BSD-2-Clause
 
-changelog = 1.0.0 (2026)
+changelog = 2.0.0 (2026)
+            - QGIS 4 / PyQt6 compatibility: every Qt enum usage
+              migrated to scoped syntax across the whole codebase;
+              qgisMaximumVersion raised from 3.99 to 4.99
+            - Save and Apply merged into one action: Save now
+              applies the workspace immediately as well
+            - New "order" field for toolbars, controlling their
+              left-to-right position within a line, with dynamic
+              spinbox limits that update live as toolbars move
+              between lines
+            - Tab stacking order preserved for tabified dock panels
+              (e.g. Layers/Browser keep their original front-to-back
+              order instead of resetting)
+            - Fixed: dock/toolbar linked-visibility connections were
+              only ever established once at plugin startup; now
+              re-established on every apply
+            - Fixed: toolbar line detection relied on raw pixel
+              positions, which could misdetect lines; now based on
+              Qt's own toolbar break state
+            - Fixed: the plugin's own toolbar could silently merge
+              onto another toolbar's line when repositioning
+            - Fixed: duplicating a workspace could silently rename/
+              overwrite the original instead of creating a copy
+            - Fixed: dynamic Line/Order limits could silently
+              corrupt a toolbar's value when line/order numbers had
+              gaps
+            - Fixed: the checkbox on a Panels/Toolbars/Menus group
+              header had no effect, then was unable to check
+              anything — unchecking it now clears the whole group,
+              re-checking restores exactly what was checked before
+
+
+            1.0.0 (2026)
             - First stable release
             - Create, modify, apply and delete workspaces
             - Capture current QGIS interface state as workspace

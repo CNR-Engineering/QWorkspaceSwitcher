@@ -18,7 +18,7 @@ interface at a given moment, in order to save it as a workspace.
 :author: Adnan Benaboud — CNR
 """
 
-from qgis.PyQt.QtWidgets import QToolBar
+from qgis.PyQt.QtWidgets import QToolBar, QDockWidget
 from qgis.PyQt.QtCore import Qt
 from qgis.utils import iface
 
@@ -31,8 +31,9 @@ class StateCapture:
 
     Iterates over the plugin registry provided by
     :class:`~perspective_manager.core.plugin_discovery.PluginDiscovery`
-    and records for each dock and toolbar: its visibility, area,
-    and — for toolbars — its line and order within that line.
+    and records for each dock and toolbar: its visibility, area —
+    plus tab stacking order for tabified docks, and line/order
+    within the line for toolbars.
 
     :example:
 
@@ -105,6 +106,21 @@ class StateCapture:
         main_win = iface.mainWindow()
         data     = {"name": name, "plugins": {}}
 
+        # CHANGE 2 — also capture the raw Qt window state, so it can
+        # be restored as a geometry baseline (splitters, floating
+        # geometry, tab order) on top of the per-widget model below,
+        # which can't represent those details. Stored as base64 text
+        # so the perspective dict stays plain-JSON-serializable.
+        try:
+            data["window_state"] = main_win.saveState().toBase64() \
+                .data().decode("ascii")
+        except Exception as e:
+            print(f"[StateCapture] Could not capture window_state: {e}")
+
+        # CHANGE 4 — pre-compute tab stacking order for every
+        # tabified dock group, once, before the per-dock loop below.
+        tab_order_by_dock = self._compute_tab_order(main_win)
+
         for plugin_name, plugin_data in self.discovery.registry.items():
             docks_state     = []
             toolbars_state  = []
@@ -124,10 +140,14 @@ class StateCapture:
                 area = main_win.dockWidgetArea(dock)
 
                 docks_state.append({
-                    "name":    dock_info["name"],
-                    "label":   dock_info["label"],
-                    "visible": dock.isVisible(),
-                    "area":    self.discovery._area_to_str(area),
+                    "name":      dock_info["name"],
+                    "label":     dock_info["label"],
+                    "visible":   dock.isVisible(),
+                    "area":      self.discovery._area_to_str(area),
+                    # CHANGE 4 — tab stacking order within its group,
+                    # 0 = frontmost. 0 by default for docks that
+                    # aren't part of any tabified group.
+                    "tab_order": tab_order_by_dock.get(id(dock), 0),
                 })
 
             # ── Capture toolbars ──────────────────
@@ -165,10 +185,73 @@ class StateCapture:
 
         return data
 
+    def _compute_tab_order(self, main_win) -> dict:
+        """
+        CHANGE 4 — Compute the tab stacking order for every tabified
+        dock group in the main window.
+
+        Uses ``QMainWindow.tabifiedDockWidgets()`` to find each
+        dock's tab-mates (Qt exposes no richer API for a dock's
+        exact tab index). Within a group, the dock that is currently
+        visible gets ``tab_order = 0`` — Qt only actually paints the
+        raised/active tab's content, so it's the one member of the
+        group whose ``isVisible()`` reads ``True``; the rest get
+        1, 2, 3... in whatever order Qt reports them.
+
+        Docks that aren't part of any tabified group are simply
+        absent from the result — callers should treat a missing
+        entry as ``tab_order = 0`` (meaningless but harmless, since
+        there's nothing to stack them against).
+
+        :param main_win: QGIS main window.
+        :return: Mapping of ``id(dock)`` to its tab order.
+        :rtype: dict[int, int]
+
+        :example:
+
+        .. code-block:: python
+
+            tab_order = capture._compute_tab_order(main_win)
+            # → {123456: 0, 123457: 1, 123458: 2}
+        """
+        result  = {}
+        visited = set()
+
+        for dock in main_win.findChildren(QDockWidget):
+            if id(dock) in visited:
+                continue
+
+            mates = main_win.tabifiedDockWidgets(dock)
+            if not mates:
+                continue
+
+            group = [dock] + list(mates)
+            for d in group:
+                visited.add(id(d))
+
+            active = next((d for d in group if d.isVisible()), group[0])
+            result[id(active)] = 0
+            order = 0
+            for d in group:
+                if d is active:
+                    continue
+                order += 1
+                result[id(d)] = order
+
+        return result
+
     def _detect_line_and_order(self, main_win, toolbar: QToolBar,
                                area_str: str) -> tuple:
         """
         Detect the line number and within-line order of a toolbar.
+
+        CHANGE 3 note: this doubles as the "``_detect_order()``"
+        step — it already computes the in-line position using
+        ``geometry().x()``/``geometry().y()`` order (see below) in
+        the same pass that resolves the line number. A separate
+        method would re-walk the same toolbar list and re-sort by
+        the same geometry a second time for no functional gain, so
+        the two were kept combined rather than split.
 
         Line boundaries are read from Qt's own
         ``QMainWindow.toolBarBreak()`` state rather than inferred by

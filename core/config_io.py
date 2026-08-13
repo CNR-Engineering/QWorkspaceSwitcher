@@ -39,6 +39,7 @@ changes to ``user.psp.json``.
 import os
 import json
 import glob
+import copy
 
 from qgis.PyQt.QtCore import QObject, pyqtSignal, QFileSystemWatcher
 
@@ -318,11 +319,15 @@ class ConfigIO(QObject):
         """
         Load a workspace by name from ``self._cfg``.
 
-        No file reading — in-memory operation only.
+        No file reading — in-memory operation only. Returns a deep
+        copy, never the live dictionary stored in ``self._cfg`` —
+        a caller mutating the result (e.g. to rename it before
+        saving under a different name, as duplication does) must
+        not silently corrupt the original in-memory workspace.
 
         :param name: Name of the workspace to load.
         :type name: str
-        :return: Complete workspace dictionary,
+        :return: Complete workspace dictionary (independent copy),
             or empty dictionary if not found.
         :rtype: dict
 
@@ -335,7 +340,7 @@ class ConfigIO(QObject):
         """
         for p in self._cfg.get("perspectives", []):
             if p["name"] == name:
-                return p
+                return copy.deepcopy(p)
         return {}
 
     def save(self, name: str, data: dict):
@@ -344,6 +349,16 @@ class ConfigIO(QObject):
 
         If the workspace already exists, it is updated. Otherwise it
         is added (the ``QGIS`` workspace is always inserted first).
+
+        CHANGE 2 / CHANGE 4 — no special handling was added here for
+        the ``"window_state"`` field or per-dock ``"tab_order"``
+        (both captured by
+        :meth:`~perspective_manager.applicators.state_capture.
+        StateCapture.capture`): ``save``/``load`` already persist
+        and return whatever keys ``data`` (and each dock dict inside
+        it) contains, generically — same as ``show_menu_bar`` or
+        ``icon`` — so adding a dedicated branch here would just
+        duplicate that existing behavior.
 
         :param name: Name of the workspace.
         :type name: str

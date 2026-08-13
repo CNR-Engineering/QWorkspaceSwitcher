@@ -200,37 +200,14 @@
         "processing": {
           "docks": [
             {
-              "name": "ResultsViewer",
-              "label": "Results Viewer",
+              "name": "undo/redo dock",
+              "label": "Undo/Redo",
               "visible": false,
-              "area": "right"
+              "area": "left"
             },
-            {
-              "name": "ProcessingToolbox",
-              "label": "Processing Toolbox",
-              "visible": false,
-              "area": "right"
-            }
-          ],
-          "toolbars": []
-        },
-        "__qgis_native__": {
-          "docks": [
             {
               "name": "AdvancedDigitizingTools",
               "label": "Advanced Digitizing",
-              "visible": false,
-              "area": "left"
-            },
-            {
-              "name": "Layers",
-              "label": "Layers",
-              "visible": true,
-              "area": "left"
-            },
-            {
-              "name": "undo/redo dock",
-              "label": "Undo/Redo",
               "visible": false,
               "area": "left"
             },
@@ -250,6 +227,12 @@
               "name": "VertexEditor",
               "label": "Vertex Editor",
               "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "Layers",
+              "label": "Layers",
+              "visible": true,
               "area": "left"
             },
             {
@@ -283,6 +266,12 @@
               "area": "right"
             },
             {
+              "name": "Browser",
+              "label": "Browser",
+              "visible": true,
+              "area": "left"
+            },
+            {
               "name": "Temporal Controller",
               "label": "Temporal Controller",
               "visible": false,
@@ -305,20 +294,12 @@
               "label": "Log Messages",
               "visible": false,
               "area": "bottom"
-            },
-            {
-              "name": "theTileScaleDock",
-              "label": "Tile Scale",
-              "visible": false,
-              "area": "right"
-            },
-            {
-              "name": "Browser",
-              "label": "Browser",
-              "visible": true,
-              "area": "left"
             }
           ],
+          "toolbars": []
+        },
+        "QWorkspaceSwitcher": {
+          "docks": [],
           "toolbars": [
             {
               "name": "mFileToolBar",
@@ -332,7 +313,7 @@
               "name": "mLayerToolBar",
               "label": "Manage Layers Toolbar",
               "visible": false,
-              "area": "left",
+              "area": "top",
               "line": 1,
               "order": 1
             },
@@ -366,7 +347,7 @@
               "visible": true,
               "area": "top",
               "line": 1,
-              "order": 1
+              "order": 2
             },
             {
               "name": "mPluginToolBar",
@@ -476,7 +457,7 @@
               "name": "mToolbar",
               "label": "mToolbar",
               "visible": false,
-              "area": "left",
+              "area": "top",
               "line": 1,
               "order": 1
             },
@@ -484,30 +465,6 @@
               "name": "mToolbar",
               "label": "mToolbar",
               "visible": false,
-              "area": "left",
-              "line": 1,
-              "order": 1
-            },
-            {
-              "name": "mToolbar",
-              "label": "mToolbar",
-              "visible": false,
-              "area": "left",
-              "line": 1,
-              "order": 1
-            },
-            {
-              "name": "mToolbar",
-              "label": "mToolbar",
-              "visible": false,
-              "area": "left",
-              "line": 1,
-              "order": 1
-            },
-            {
-              "name": "QWorkspaceSwitcherToolbar",
-              "label": "QWorkspace Switcher",
-              "visible": true,
               "area": "top",
               "line": 1,
               "order": 1
@@ -1012,7 +969,7 @@
       "dropdown_menus": []
     },
     {
-      "name": "test",
+      "name": "test - copy",
       "plugins": {
         "georelai": {
           "docks": [
@@ -1203,7 +1160,7 @@
               "label": "GeorelaiToolbar",
               "visible": true,
               "area": "top",
-              "line": 2,
+              "line": 3,
               "order": 1
             }
           ]
@@ -1225,23 +1182,30 @@
           ],
           "toolbars": []
         },
+        "QWorkspaceSwitcher": {
+          "docks": [],
+          "toolbars": [
+            {
+              "name": "QWorkspaceSwitcherToolbar",
+              "label": "QWorkspace Switcher",
+              "visible": true,
+              "area": "top",
+              "line": 4,
+              "order": 1
+            }
+          ]
+        },
         "__qgis_native__": {
           "docks": [
             {
-              "name": "AdvancedDigitizingTools",
-              "label": "Advanced Digitizing",
+              "name": "undo/redo dock",
+              "label": "Undo/Redo",
               "visible": false,
               "area": "left"
             },
             {
-              "name": "Layers",
-              "label": "Layers",
-              "visible": true,
-              "area": "left"
-            },
-            {
-              "name": "undo/redo dock",
-              "label": "Undo/Redo",
+              "name": "AdvancedDigitizingTools",
+              "label": "Advanced Digitizing",
               "visible": false,
               "area": "left"
             },
@@ -1261,6 +1225,12 @@
               "name": "VertexEditor",
               "label": "Vertex Editor",
               "visible": false,
+              "area": "left"
+            },
+            {
+              "name": "Layers",
+              "label": "Layers",
+              "visible": true,
               "area": "left"
             },
             {
@@ -1294,6 +1264,12 @@
               "area": "right"
             },
             {
+              "name": "Browser",
+              "label": "Browser",
+              "visible": true,
+              "area": "left"
+            },
+            {
               "name": "Temporal Controller",
               "label": "Temporal Controller",
               "visible": false,
@@ -1322,12 +1298,6 @@
               "label": "Tile Scale",
               "visible": false,
               "area": "right"
-            },
-            {
-              "name": "Browser",
-              "label": "Browser",
-              "visible": true,
-              "area": "left"
             }
           ],
           "toolbars": [
@@ -1345,20 +1315,20 @@
               "visible": false,
               "area": "left",
               "line": 1,
-              "order": 2
+              "order": 1
             },
             {
               "name": "mDigitizeToolBar",
               "label": "Digitizing Toolbar",
-              "visible": false,
+              "visible": true,
               "area": "top",
-              "line": 1,
-              "order": 1
+              "line": 2,
+              "order": 2
             },
             {
               "name": "mAdvancedDigitizeToolBar",
               "label": "Advanced Digitizing Toolbar",
-              "visible": true,
+              "visible": false,
               "area": "top",
               "line": 1,
               "order": 1
@@ -1366,15 +1336,15 @@
             {
               "name": "mMapNavToolBar",
               "label": "Map Navigation Toolbar",
-              "visible": false,
+              "visible": true,
               "area": "top",
               "line": 1,
-              "order": 1
+              "order": 3
             },
             {
               "name": "mAttributesToolBar",
               "label": "Attributes Toolbar",
-              "visible": false,
+              "visible": true,
               "area": "top",
               "line": 1,
               "order": 1
@@ -1382,18 +1352,18 @@
             {
               "name": "mPluginToolBar",
               "label": "Plugins Toolbar",
-              "visible": false,
+              "visible": true,
               "area": "top",
-              "line": 1,
-              "order": 1
+              "line": 2,
+              "order": 5
             },
             {
               "name": "mHelpToolBar",
               "label": "Help Toolbar",
-              "visible": false,
+              "visible": true,
               "area": "top",
-              "line": 1,
-              "order": 1
+              "line": 2,
+              "order": 3
             },
             {
               "name": "mRasterToolBar",
@@ -1406,18 +1376,18 @@
             {
               "name": "mLabelToolBar",
               "label": "Label Toolbar",
-              "visible": false,
+              "visible": true,
               "area": "top",
-              "line": 1,
-              "order": 1
+              "line": 2,
+              "order": 4
             },
             {
               "name": "mVectorToolBar",
               "label": "Vector Toolbar",
-              "visible": false,
+              "visible": true,
               "area": "top",
-              "line": 1,
-              "order": 1
+              "line": 2,
+              "order": 6
             },
             {
               "name": "mDatabaseToolBar",
@@ -1430,10 +1400,10 @@
             {
               "name": "mWebToolBar",
               "label": "Web Toolbar",
-              "visible": false,
+              "visible": true,
               "area": "top",
-              "line": 1,
-              "order": 1
+              "line": 2,
+              "order": 7
             },
             {
               "name": "mSnappingToolBar",
@@ -1446,9 +1416,9 @@
             {
               "name": "mDataSourceManagerToolBar",
               "label": "Data Source Manager Toolbar",
-              "visible": false,
+              "visible": true,
               "area": "top",
-              "line": 1,
+              "line": 2,
               "order": 1
             },
             {
@@ -1462,10 +1432,10 @@
             {
               "name": "mSelectionToolBar",
               "label": "Selection Toolbar",
-              "visible": false,
+              "visible": true,
               "area": "top",
               "line": 1,
-              "order": 1
+              "order": 4
             },
             {
               "name": "mMeshToolBar",
@@ -1490,51 +1460,10 @@
               "area": "left",
               "line": 1,
               "order": 1
-            },
-            {
-              "name": "mToolbar",
-              "label": "mToolbar",
-              "visible": false,
-              "area": "left",
-              "line": 1,
-              "order": 1
-            },
-            {
-              "name": "mToolbar",
-              "label": "mToolbar",
-              "visible": false,
-              "area": "left",
-              "line": 1,
-              "order": 1
-            },
-            {
-              "name": "mToolbar",
-              "label": "mToolbar",
-              "visible": false,
-              "area": "left",
-              "line": 1,
-              "order": 1
-            }
-          ]
-        },
-        "QWorkspaceSwitcher": {
-          "docks": [],
-          "toolbars": [
-            {
-              "name": "QWorkspaceSwitcherToolbar",
-              "label": "QWorkspace Switcher",
-              "visible": true,
-              "area": "top",
-              "line": 2,
-              "order": 2
             }
           ]
         }
-      },
-      "button_style": "text",
-      "icon": "",
-      "show_menu_bar": true,
-      "dropdown_menus": []
+      }
     }
   ]
 }

@@ -112,6 +112,11 @@ class MainWindow(QDialog, FORM_CLASS):
         #: ``(id(tree), plugin_name)``.
         self._root_snapshot = {}
 
+        #: CHANGE 3 (live) — every toolbar row's Line/Order spinboxes
+        #: + area, rebuilt on each :meth:`_populate_toolbars_tree`
+        #: call. Scanned by :meth:`_recompute_toolbar_limits`.
+        self._toolbar_spinboxes = []
+
         # Connect Configuration signals for title indicator
         self.engine.config_io._cfg.sgl_unsaved.connect(
             lambda: self.setWindowTitle("QWorkspaceSwitcher *")
@@ -163,6 +168,12 @@ class MainWindow(QDialog, FORM_CLASS):
         - ``treeWidget_menu`` — menu selection tree.
         - ``checkBox_menuBar`` — shows/hides QGIS menu bar.
         """
+        # CHANGE 1 — Save now also applies the workspace, so the
+        # separate Apply button is redundant. Hidden rather than
+        # removed: apply_preview()/_on_apply() still work if this
+        # needs to be re-exposed later.
+        self.btnApply.setVisible(False)
+
         # Icon
         self.checkBox_icon.stateChanged.connect(
             self._on_icon_checkbox_changed
@@ -414,6 +425,13 @@ class MainWindow(QDialog, FORM_CLASS):
 
         registry = self.engine.get_registry()
 
+        # CHANGE 3 (live) — every row's Line/Order spinbox limits are
+        # (re)computed from the CURRENT live spinbox values by
+        # _recompute_toolbar_limits(), not from a one-time snapshot
+        # of the saved/registry data. This list is what that method
+        # scans; it's rebuilt from scratch on every populate.
+        self._toolbar_spinboxes = []
+
         for plugin_name, plugin_data in registry.items():
             toolbars = plugin_data.get("toolbars", [])
             if not toolbars:
@@ -446,6 +464,7 @@ class MainWindow(QDialog, FORM_CLASS):
 
             for tb_info in visible_toolbars:
                 saved = saved_toolbars.get(tb_info["name"], {})
+                area  = saved.get("area", tb_info.get("area", "top"))
                 line  = saved.get("line", tb_info.get("line", 1))
                 order = saved.get("order", tb_info.get("order", 1))
 
@@ -454,21 +473,38 @@ class MainWindow(QDialog, FORM_CLASS):
                 child.setData(0, Qt.ItemDataRole.UserRole, tb_info["name"])
                 child.setData(1, Qt.ItemDataRole.UserRole, "toolbar")
 
+                # CHANGE 3 (live) — created with a generous temporary
+                # range so setValue() below can't be clipped; real
+                # limits are set for every row in one pass by
+                # _recompute_toolbar_limits() once the whole tree is
+                # built (see end of this method).
                 spinbox = QSpinBox()
                 spinbox.setMinimum(1)
-                spinbox.setMaximum(5)
+                spinbox.setMaximum(max(line, 1))
                 spinbox.setValue(line)
                 spinbox.setToolTip("Line in toolbar area")
                 self.treeToolbars.setItemWidget(child, 1, spinbox)
 
                 order_spinbox = QSpinBox()
-                order_spinbox.setMinimum(1)
-                order_spinbox.setMaximum(20)
+                order_spinbox.setMinimum(0)
+                order_spinbox.setMaximum(max(order, 0))
                 order_spinbox.setValue(order)
                 order_spinbox.setToolTip(
-                    "Position within the line (1 = leftmost/topmost)"
+                    "Position within the line (0 = unordered/first, "
+                    "1 = leftmost/topmost)"
                 )
                 self.treeToolbars.setItemWidget(child, 2, order_spinbox)
+
+                self._toolbar_spinboxes.append({
+                    "area":          area,
+                    "line_spinbox":  spinbox,
+                    "order_spinbox": order_spinbox,
+                })
+                # Moving a toolbar to a different line changes how
+                # many toolbars share both the old and the new line,
+                # and possibly the number of distinct lines in the
+                # area — recompute everyone's limits live.
+                spinbox.valueChanged.connect(self._recompute_toolbar_limits)
 
                 child.setFlags(child.flags() | Qt.ItemFlag.ItemIsUserCheckable)
 
@@ -494,8 +530,94 @@ class MainWindow(QDialog, FORM_CLASS):
             else:
                 plugin_item.setCheckState(0, Qt.CheckState.PartiallyChecked)
 
+        # CHANGE 3 (live) — establish real limits for every row now
+        # that they all exist, from their actual initial values.
+        self._recompute_toolbar_limits()
+
         self.treeToolbars.blockSignals(False)
         self.treeToolbars.itemChanged.connect(self._on_toolbar_item_changed)
+
+    def _recompute_toolbar_limits(self, *_):
+        """
+        CHANGE 3 (live) — recompute every toolbar row's Line/Order
+        spinbox limits from the spinboxes' CURRENT values, not a
+        one-time snapshot taken when the tree was populated.
+
+        Wired to every Line spinbox's ``valueChanged``: moving a
+        toolbar to a different line changes how many toolbars share
+        both the line it left and the line it joined (and possibly
+        how many distinct lines exist in the area), so every
+        affected row's Order max — and every row's Line max — needs
+        updating immediately, not just on the next tree rebuild.
+
+        - Line max = number of distinct lines currently used in
+          that toolbar's area, + 1 (a new line is always reachable) —
+          or the *highest* line number actually in use in that area,
+          whichever is bigger.
+        - Order max = number of toolbars currently on that exact
+          (area, line), + 1 — or the *highest* order value actually
+          in use on that line, whichever is bigger.
+
+        The "whichever is bigger" half of each is load-bearing, not
+        cosmetic: with a gap (e.g. toolbars only on lines 1 and 4,
+        none on 2 or 3), the distinct-count formula alone gives
+        ``2 + 1 = 3`` — below the toolbar that's actually on line 4.
+        Qt's :class:`QSpinBox` auto-clamps ``value()`` down when
+        ``setMaximum()`` drops below it, so that toolbar's line would
+        silently get corrupted from 4 to 3 — and every later
+        recompute would then see the same gap-free set and keep
+        everyone capped at 3 forever, since 4 no longer exists
+        anywhere in the live spinbox state to recover from. Taking
+        the max against the highest value actually in use guarantees
+        an existing value is never clamped away, regardless of gaps.
+
+        Each spinbox's own signal is blocked while its limits are
+        adjusted, so this can't recurse into itself.
+
+        :param \\*_: Ignored — accepts the ``int`` argument Qt's
+            ``valueChanged`` signal passes when connected directly.
+        """
+        rows = getattr(self, "_toolbar_spinboxes", None)
+        if not rows:
+            return
+
+        lines_per_area      = {}   # area -> set of line numbers used
+        highest_line        = {}   # area -> highest line number used
+        toolbars_per_line   = {}   # (area, line) -> toolbar count
+        highest_order_on    = {}   # (area, line) -> highest order used
+        for row in rows:
+            area  = row["area"]
+            line  = row["line_spinbox"].value()
+            order = row["order_spinbox"].value()
+
+            lines_per_area.setdefault(area, set()).add(line)
+            highest_line[area] = max(highest_line.get(area, 1), line)
+
+            key = (area, line)
+            toolbars_per_line[key] = toolbars_per_line.get(key, 0) + 1
+            highest_order_on[key] = max(highest_order_on.get(key, 0), order)
+
+        for row in rows:
+            area     = row["area"]
+            line_sb  = row["line_spinbox"]
+            order_sb = row["order_spinbox"]
+
+            line_max = max(
+                len(lines_per_area.get(area, {1})) + 1,
+                highest_line.get(area, 1)
+            )
+            line_sb.blockSignals(True)
+            line_sb.setMaximum(line_max)
+            line_sb.blockSignals(False)
+
+            key = (area, line_sb.value())
+            order_max = max(
+                toolbars_per_line.get(key, 1) + 1,
+                highest_order_on.get(key, 0)
+            )
+            order_sb.blockSignals(True)
+            order_sb.setMaximum(order_max)
+            order_sb.blockSignals(False)
 
     def _populate_menus_tree(self):
         """
@@ -926,7 +1048,8 @@ class MainWindow(QDialog, FORM_CLASS):
                             line_spinbox.setValue(1)
                         order_spinbox = tree.itemWidget(child, 2)
                         if order_spinbox:
-                            order_spinbox.setValue(1)
+                            # CHANGE 3 — new Order minimum is 0
+                            order_spinbox.setValue(0)
             tree.blockSignals(False)
 
         self.treeWidget_menu.blockSignals(True)
@@ -990,6 +1113,9 @@ class MainWindow(QDialog, FORM_CLASS):
         Builds the dictionary via :meth:`_build_data_from_tree`,
         adds metadata (style, icon, menu bar, dropdown menus)
         and delegates to :meth:`PerspectiveEngine.save_from_data`.
+
+        CHANGE 1 — also applies the saved workspace immediately
+        afterward, merging the former Apply button's role into Save.
         """
         new_name = self.inputName.text().strip()
         if not new_name:
@@ -1036,7 +1162,22 @@ class MainWindow(QDialog, FORM_CLASS):
             else []
         )
 
+        # CHANGE 2 — the tree has no way to show or edit
+        # "window_state" (see StateCapture/PerspectiveEngine), so a
+        # plain Save must carry forward whatever was already
+        # captured for this workspace instead of silently dropping
+        # it. Only "Capture" (which re-captures everything from the
+        # live QGIS state) legitimately replaces it.
+        existing_data = self.engine.config_io.load(new_name)
+        if existing_data.get("window_state"):
+            data["window_state"] = existing_data["window_state"]
+
         self.engine.save_from_data(new_name, data)
+
+        # CHANGE 1 — Save also applies immediately (merged with the
+        # former Apply button).
+        self.engine.apply(new_name)
+
         self._refresh_list()
         self.perspectiveSaved.emit()
 
@@ -1230,7 +1371,12 @@ class MainWindow(QDialog, FORM_CLASS):
         toolbars — order within the line).
 
         The toolbar area is preserved from the existing JSON
-        or from the registry if absent.
+        or from the registry if absent. Likewise (CHANGE 4), each
+        dock's ``"tab_order"`` — which the tree has no control to
+        show or edit — is carried forward from the existing JSON if
+        present, so a plain Save doesn't silently discard it (only
+        "Capture" legitimately replaces it, by re-detecting it from
+        the live QGIS state).
 
         :param name: Name of the workspace to build.
         :type name: str
@@ -1245,10 +1391,23 @@ class MainWindow(QDialog, FORM_CLASS):
         plugins_with_docks = [
             pn for pn in plugin_names if registry[pn].get("docks")
         ]
+        # CHANGE 4 — existing per-dock "tab_order" values for this
+        # workspace, so they can be carried forward below.
+        existing_docks_by_plugin = {
+            pn: {
+                d["name"]: d
+                for d in self.engine.config_io.load(name).get(
+                    "plugins", {}
+                ).get(pn, {}).get("docks", [])
+            }
+            for pn in plugins_with_docks
+        }
+
         for i in range(self.treeDocks.topLevelItemCount()):
             plugin_item = self.treeDocks.topLevelItem(i)
             plugin_name = plugins_with_docks[i]
             docks_cfg   = []
+            existing_docks = existing_docks_by_plugin.get(plugin_name, {})
 
             for j in range(plugin_item.childCount()):
                 child       = plugin_item.child(j)
@@ -1256,12 +1415,16 @@ class MainWindow(QDialog, FORM_CLASS):
                 visible     = child.checkState(0) == Qt.CheckState.Checked
                 combo       = self.treeDocks.itemWidget(child, 2)
                 area        = combo.currentText() if combo else "left"
+                tab_order   = existing_docks.get(widget_name, {}).get(
+                    "tab_order", 0
+                )
 
                 docks_cfg.append({
-                    "name":    widget_name,
-                    "label":   child.text(0),
-                    "visible": visible,
-                    "area":    area,
+                    "name":      widget_name,
+                    "label":     child.text(0),
+                    "visible":   visible,
+                    "area":      area,
+                    "tab_order": tab_order,
                 })
 
             if plugin_name not in data["plugins"]:
@@ -1348,7 +1511,8 @@ class MainWindow(QDialog, FORM_CLASS):
         self.inputName.setVisible(visible)
         self.btnCapture.setVisible(visible)
         self.tabWidget.setVisible(visible)
-        self.btnApply.setVisible(visible)
+        # CHANGE 1 — btnApply stays hidden permanently (see
+        # _build_style_widgets); Save now applies too.
         self.btnSave.setVisible(visible)
         self.btnDuplicate.setVisible(visible)
         self.checkBox_menuBar.setVisible(visible)
