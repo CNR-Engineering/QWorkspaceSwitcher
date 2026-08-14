@@ -486,7 +486,7 @@ class MainWindow(QDialog, FORM_CLASS):
                 self.treeToolbars.setItemWidget(child, 1, spinbox)
 
                 order_spinbox = QSpinBox()
-                order_spinbox.setMinimum(0)
+                order_spinbox.setMinimum(1)
                 order_spinbox.setMaximum(max(order, 0))
                 order_spinbox.setValue(order)
                 order_spinbox.setToolTip(

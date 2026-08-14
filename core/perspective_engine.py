@@ -32,9 +32,13 @@ to apply workspaces on the QGIS interface.
         └── Pass 4 — menuBar().setVisible()
                 → shows/hides the QGIS menu bar
 
-**Excluded toolbars** (never repositioned):
+**Excluded toolbars** (never force-hidden by ``_hide_all``):
 
-- ``QWorkspaceSwitcherToolbar`` — the plugin's own toolbar.
+- ``QWorkspaceSwitcherToolbar`` — the plugin's own toolbar. Its
+  position (area/line/order) still comes from its own workspace
+  configuration entry, applied like any other toolbar in
+  ``ToolbarApplicator.apply_all()`` — only its visibility is
+  protected here, so it can never be hidden out of reach.
 - ``QToolBar`` — widgets without a valid name.
 
 **Linked toolbars** (automatically follow their dock):
@@ -66,7 +70,9 @@ LINKED_TOOLBARS = {
     "processingToolbar",
 }
 
-#: Excluded toolbars — never hidden or repositioned by the plugin.
+#: Toolbars never force-hidden by :meth:`PerspectiveEngine._hide_all`.
+#: Positioning is a separate concern, handled by
+#: :data:`applicators.toolbar_applicator.EXCLUDED_TOOLBARS`.
 EXCLUDED_TOOLBARS = {
     "QWorkspaceSwitcherToolbar",
     "QToolBar",

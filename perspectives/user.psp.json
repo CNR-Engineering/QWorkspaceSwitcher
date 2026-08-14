@@ -9,181 +9,211 @@
               "name": "domains_edition",
               "label": "Edition des domaines",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "altimetric_reference_change",
               "label": "Changement de référentiel altimétrique",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "import_bornes",
               "label": "Import des bornes",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "import_bathy_point",
               "label": "Import des points bathy",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "import_profil_points",
               "label": "Création profil points",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "import_profil_long_from_files",
               "label": "Import profils en long",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "edition_profil",
               "label": "Edition des profils",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "etendre_profil_trace",
               "label": "Étendre les traces de profil",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "compute_profil_point_from_mesh",
               "label": "Création profils point depuis MNT",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "update_profil_trace",
               "label": "Mettre à jour les traces de profil",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "create_sections",
               "label": "Positionner les sections",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "axe_auto",
               "label": "Axe auto",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "thalweg_limits",
               "label": "Limites de Thalweg",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "lateral_limits",
               "label": "Limites latérales",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "axe_hydro_limits",
               "label": "Limites axe hydraulique",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "compute_profil_long",
               "label": "Tracer limites",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "limite_from_profil_long",
               "label": "Pré-positionner les limites",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "calcul_casier_loi",
               "label": "Calculer PCS",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "vue_casier_loi",
               "label": "Visualiser PCS",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "compute_seuil_point",
               "label": "Convertir Trace Seuils 3D",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "compute_seuil_elem",
               "label": "Construire éléments de seuil",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "vue_seuil",
               "label": "Visualiser seuil",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "create_emprise",
               "label": "Créer les emprises de semis de points",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "create_branch",
               "label": "Créer les branches",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "export_bathy",
               "label": "Export bathy",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "logs",
               "label": "Logs",
               "visible": false,
-              "area": "bottom"
+              "area": "bottom",
+              "tab_order": 0
             },
             {
               "name": "calcul_crue",
               "label": "Calcul Crue",
               "visible": false,
-              "area": "bottom"
+              "area": "bottom",
+              "tab_order": 0
             },
             {
               "name": "explorateur_emh",
               "label": "Explorateur EMH",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "noeud_viewer",
               "label": "Noeud",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "casier_viewer",
               "label": "Casier",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             }
           ],
           "toolbars": [
@@ -203,102 +233,131 @@
               "name": "undo/redo dock",
               "label": "Undo/Redo",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "AdvancedDigitizingTools",
               "label": "Advanced Digitizing",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "StatisticalSummaryDockWidget",
               "label": "Statistics",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "BookmarksDockWidget",
               "label": "Spatial Bookmark Manager",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "VertexEditor",
               "label": "Vertex Editor",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "Layers",
               "label": "Layers",
-              "visible": true,
-              "area": "left"
+              "visible": false,
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "LayerOrder",
               "label": "Layer Order",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "Overview",
               "label": "Overview",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "QgsGeometryValidationDockBase",
               "label": "Geometry Validation",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "LayerStyling",
               "label": "Layer Styling",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "DevTools",
               "label": "Debugging/Development Tools",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "Browser",
               "label": "Browser",
-              "visible": true,
-              "area": "left"
+              "visible": false,
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "Temporal Controller",
               "label": "Temporal Controller",
               "visible": false,
-              "area": "top"
+              "area": "top",
+              "tab_order": 0
             },
             {
               "name": "Browser2",
               "label": "Browser (2)",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "GPSInformation",
               "label": "GPS Information",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "MessageLog",
               "label": "Log Messages",
               "visible": false,
-              "area": "bottom"
+              "area": "bottom",
+              "tab_order": 0
             }
           ],
           "toolbars": []
         },
         "QWorkspaceSwitcher": {
+          "docks": [],
+          "toolbars": [
+            {
+              "name": "QWorkspaceSwitcherToolbar",
+              "label": "QWorkspace Switcher",
+              "visible": true,
+              "area": "top",
+              "line": 1,
+              "order": 1
+            }
+          ]
+        },
+        "__qgis_native__": {
           "docks": [],
           "toolbars": [
             {
@@ -313,7 +372,7 @@
               "name": "mLayerToolBar",
               "label": "Manage Layers Toolbar",
               "visible": false,
-              "area": "top",
+              "area": "left",
               "line": 1,
               "order": 1
             },
@@ -323,7 +382,7 @@
               "visible": true,
               "area": "top",
               "line": 2,
-              "order": 1
+              "order": 2
             },
             {
               "name": "mAdvancedDigitizeToolBar",
@@ -339,7 +398,7 @@
               "visible": true,
               "area": "top",
               "line": 1,
-              "order": 1
+              "order": 2
             },
             {
               "name": "mAttributesToolBar",
@@ -347,7 +406,7 @@
               "visible": true,
               "area": "top",
               "line": 1,
-              "order": 2
+              "order": 4
             },
             {
               "name": "mPluginToolBar",
@@ -355,7 +414,7 @@
               "visible": true,
               "area": "top",
               "line": 2,
-              "order": 1
+              "order": 5
             },
             {
               "name": "mHelpToolBar",
@@ -363,14 +422,14 @@
               "visible": true,
               "area": "top",
               "line": 2,
-              "order": 1
+              "order": 6
             },
             {
               "name": "mRasterToolBar",
               "label": "Raster Toolbar",
               "visible": false,
               "area": "top",
-              "line": 3,
+              "line": 1,
               "order": 1
             },
             {
@@ -379,7 +438,7 @@
               "visible": true,
               "area": "top",
               "line": 2,
-              "order": 1
+              "order": 3
             },
             {
               "name": "mVectorToolBar",
@@ -387,14 +446,14 @@
               "visible": true,
               "area": "top",
               "line": 2,
-              "order": 1
+              "order": 7
             },
             {
               "name": "mDatabaseToolBar",
               "label": "Database Toolbar",
               "visible": false,
               "area": "top",
-              "line": 3,
+              "line": 1,
               "order": 1
             },
             {
@@ -403,14 +462,14 @@
               "visible": true,
               "area": "top",
               "line": 2,
-              "order": 1
+              "order": 4
             },
             {
               "name": "mSnappingToolBar",
               "label": "Snapping Toolbar",
               "visible": false,
               "area": "top",
-              "line": 3,
+              "line": 1,
               "order": 1
             },
             {
@@ -426,7 +485,7 @@
               "label": "Shape Digitizing Toolbar",
               "visible": false,
               "area": "top",
-              "line": 3,
+              "line": 1,
               "order": 1
             },
             {
@@ -435,27 +494,19 @@
               "visible": true,
               "area": "top",
               "line": 1,
-              "order": 1
+              "order": 3
             },
             {
               "name": "mMeshToolBar",
               "label": "Mesh Digitizing Toolbar",
               "visible": false,
               "area": "top",
-              "line": 3,
+              "line": 1,
               "order": 1
             },
             {
               "name": "mAnnotationsToolBar",
               "label": "Annotations Toolbar",
-              "visible": false,
-              "area": "top",
-              "line": 3,
-              "order": 1
-            },
-            {
-              "name": "mToolbar",
-              "label": "mToolbar",
               "visible": false,
               "area": "top",
               "line": 1,
@@ -465,7 +516,31 @@
               "name": "mToolbar",
               "label": "mToolbar",
               "visible": false,
-              "area": "top",
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
               "line": 1,
               "order": 1
             }
@@ -475,7 +550,8 @@
       "button_style": "text",
       "icon": "",
       "show_menu_bar": true,
-      "dropdown_menus": []
+      "dropdown_menus": [],
+      "window_state": "AAAA/wAAAAD9AAAABAAAAAAAAAEmAAADZfwCAAAAG/wAAACTAAABugAAAHgA////+gAAAAIBAAAAA/sAAAAMAEwAZQBnAGUAbgBkAQAAAAD/////AAAAAAAAAAD7AAAAFABMAGEAeQBlAHIATwByAGQAZQByAAAAAAD/////AAAAiwD////7AAAADgBCAHIAbwB3AHMAZQByAQAAAAD/////AAAARgD////7AAAAEABPAHYAZQByAHYAaQBlAHcAAAAB1wAAAMQAAAATAP////sAAAAiAEMAbwBvAHIAZABpAG4AYQB0AGUAQwBhAHAAdAB1AHIAZQAAAAF+AAAAoAAAAAAAAAAA+wAAAAgAVQBuAGQAbwAAAAHkAAAA3AAAAAAAAAAA+wAAABAAQgByAG8AdwBzAGUAcgAyAAAAAhMAAACtAAAAfAD////7AAAAHABHAFAAUwBJAG4AZgBvAHIAbQBhAHQAaQBvAG4AAAABuwAAAQUAAABdAP////sAAAAoAGQAdwBPAHAAZQBuAGwAYQB5AGUAcgBzAE8AdgBlAHIAdgBpAGUAdwAAAAFkAAABNwAAAAAAAAAA+wAAABwAdQBuAGQAbwAvAHIAZQBkAG8AIABkAG8AYwBrAAAAAAD/////AAAA7wD////7AAAALgBBAGQAdgBhAG4AYwBlAGQARABpAGcAaQB0AGkAegBpAG4AZwBUAG8AbwBsAHMAAAAAAP////8AAADYAP////sAAAA0AFMAdABhAHQAaQBzAHQAYQBsAFMAdQBtAG0AYQByAHkARABvAGMAawBXAGkAZABnAGUAdAAAAAAA/////wAAAAAAAAAA+wAAACYAQgBvAG8AawBtAGEAcgBrAHMARABvAGMAawBXAGkAZABnAGUAdAAAAAAA/////wAAAHgA////+wAAAAwATABhAHkAZQByAHMBAAACUwAAAaUAAAB4AP////sAAAA4AFMAdABhAHQAaQBzAHQAaQBjAGEAbABTAHUAbQBtAGEAcgB5AEQAbwBjAGsAVwBpAGQAZwBlAHQAAAAAAP////8AAAC+AP////sAAAAYAFYAZQByAHQAZQB4AEUAZABpAHQAbwByAAAAAAD/////AAAAXQD////7AAAAHgBkAG8AbQBhAGkAbgBzAF8AZQBkAGkAdABpAG8AbgAAAAAA/////wAAAMkA////+wAAADYAYQBsAHQAaQBtAGUAdAByAGkAYwBfAHIAZQBmAGUAcgBlAG4AYwBlAF8AYwBoAGEAbgBnAGUAAAAAAP////8AAADfAP////sAAAAcAGUAZABpAHQAaQBvAG4AXwBwAHIAbwBmAGkAbAAAAAAA/////wAAALcA////+wAAACgAZQB0AGUAbgBkAHIAZQBfAHAAcgBvAGYAaQBsAF8AdAByAGEAYwBlAAAAAAD/////AAABFwD////7AAAAPABjAG8AbQBwAHUAdABlAF8AcAByAG8AZgBpAGwAXwBwAG8AaQBuAHQAXwBmAHIAbwBtAF8AbQBlAHMAaAAAAAAA/////wAAARkA////+wAAACYAdQBwAGQAYQB0AGUAXwBwAHIAbwBmAGkAbABfAHQAcgBhAGMAZQAAAAAA/////wAAAN8A////+wAAAB4AYwByAGUAYQB0AGUAXwBzAGUAYwB0AGkAbwBuAHMAAAAAAP////8AAAEVAP////sAAAAiAGMAYQBsAGMAdQBsAF8AYwBhAHMAaQBlAHIAXwBsAG8AaQAAAAAA/////wAAAUkA////+wAAABwAdgB1AGUAXwBjAGEAcwBpAGUAcgBfAGwAbwBpAAAAAAD/////AAAAtwD////7AAAAJgBjAG8AbQBwAHUAdABlAF8AcwBlAHUAaQBsAF8AcABvAGkAbgB0AAAAAAD/////AAABRwD////7AAAAJABjAG8AbQBwAHUAdABlAF8AcwBlAHUAaQBsAF8AZQBsAGUAbQAAAAAA/////wAAASkA////+wAAABIAdgB1AGUAXwBzAGUAdQBpAGwAAAAAAP////8AAAC3AP////sAAAAYAGUAeABwAG8AcgB0AF8AYgBhAHQAaAB5AAAAAAD/////AAAA+gD///8AAAABAAABKgAAAjP8AgAAABX7AAAAHgBTAGUAeAB0AGEAbgB0AGUAVABvAG8AbABiAG8AeAAAAABnAAACNAAAAAAAAAAA/AAAAGQAAAIzAAAAAAD////6/////wEAAAAC+wAAABgATABhAHkAZQByAFMAdAB5AGwAaQBuAGcAAAAD1gAAASoAAAETAP////sAAAAiAFAAcgBvAGMAZQBzAHMAaQBuAGcAVABvAG8AbABiAG8AeAAAAAAA/////wAAAEYA////+wAAABQARABvAGMAawBXAGkAZABnAGUAdAAAAAAA/////wAAAAAAAAAA+wAAABAARABlAHYAVABvAG8AbABzAAAAAAD/////AAAAXQD////7AAAAGgBSAGUAcwB1AGwAdABzAFYAaQBlAHcAZQByAAAAAAD/////AAABHQD////7AAAAGgBpAG0AcABvAHIAdABfAGIAbwByAG4AZQBzAAAAAAD/////AAABdAD////7AAAAJABpAG0AcABvAHIAdABfAGIAYQB0AGgAeQBfAHAAbwBpAG4AdAAAAAAA/////wAAAZAA////+wAAACgAaQBtAHAAbwByAHQAXwBwAHIAbwBmAGkAbABfAHAAbwBpAG4AdABzAAAAAAD/////AAABRQD////7AAAAOgBpAG0AcABvAHIAdABfAHAAcgBvAGYAaQBsAF8AbABvAG4AZwBfAGYAcgBvAG0AXwBmAGkAbABlAHMAAAAAAP////8AAAF2AP////sAAAAQAGEAeABlAF8AYQB1AHQAbwAAAAAA/////wAAAN8A////+wAAABwAdABoAGEAbAB3AGUAZwBfAGwAaQBtAGkAdABzAAAAAAD/////AAAA3wD////7AAAAHABsAGEAdABlAHIAYQBsAF8AbABpAG0AaQB0AHMAAAAAAP////8AAAD7AP////sAAAAgAGEAeABlAF8AaAB5AGQAcgBvAF8AbABpAG0AaQB0AHMAAAAAAP////8AAADfAP////sAAAAmAGMAbwBtAHAAdQB0AGUAXwBwAHIAbwBmAGkAbABfAGwAbwBuAGcAAAAAAP////8AAAD7AP////sAAAAuAGwAaQBtAGkAdABlAF8AZgByAG8AbQBfAHAAcgBvAGYAaQBsAF8AbABvAG4AZwAAAAAA/////wAAAN8A////+wAAABwAYwByAGUAYQB0AGUAXwBlAG0AcAByAGkAcwBlAAAAAAD/////AAABPwD////7AAAAGgBjAHIAZQBhAHQAZQBfAGIAcgBhAG4AYwBoAAAAAAD/////AAABFQD////7AAAAHgBlAHgAcABsAG8AcgBhAHQAZQB1AHIAXwBlAG0AaAAAAAAA/////wAAAKEA////+wAAABgAbgBvAGUAdQBkAF8AdgBpAGUAdwBlAHIAAAAAAP////8AAACsAP////sAAAAaAGMAYQBz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"
     },
     {
       "name": "Modélisation",
@@ -977,181 +1053,211 @@
               "name": "domains_edition",
               "label": "Edition des domaines",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "altimetric_reference_change",
               "label": "Changement de référentiel altimétrique",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "import_bornes",
               "label": "Import des bornes",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "import_bathy_point",
               "label": "Import des points bathy",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "import_profil_points",
               "label": "Création profil points",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "import_profil_long_from_files",
               "label": "Import profils en long",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "edition_profil",
               "label": "Edition des profils",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "etendre_profil_trace",
               "label": "Étendre les traces de profil",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "compute_profil_point_from_mesh",
               "label": "Création profils point depuis MNT",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "update_profil_trace",
               "label": "Mettre à jour les traces de profil",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "create_sections",
               "label": "Positionner les sections",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "axe_auto",
               "label": "Axe auto",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "thalweg_limits",
               "label": "Limites de Thalweg",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "lateral_limits",
               "label": "Limites latérales",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "axe_hydro_limits",
               "label": "Limites axe hydraulique",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "compute_profil_long",
               "label": "Tracer limites",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "limite_from_profil_long",
               "label": "Pré-positionner les limites",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "calcul_casier_loi",
               "label": "Calculer PCS",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "vue_casier_loi",
               "label": "Visualiser PCS",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "compute_seuil_point",
               "label": "Convertir Trace Seuils 3D",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "compute_seuil_elem",
               "label": "Construire éléments de seuil",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "vue_seuil",
               "label": "Visualiser seuil",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "create_emprise",
               "label": "Créer les emprises de semis de points",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "create_branch",
               "label": "Créer les branches",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "export_bathy",
               "label": "Export bathy",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "logs",
               "label": "Logs",
               "visible": false,
-              "area": "bottom"
+              "area": "bottom",
+              "tab_order": 0
             },
             {
               "name": "calcul_crue",
               "label": "Calcul Crue",
               "visible": false,
-              "area": "bottom"
+              "area": "bottom",
+              "tab_order": 0
             },
             {
               "name": "explorateur_emh",
               "label": "Explorateur EMH",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "noeud_viewer",
               "label": "Noeud",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "casier_viewer",
               "label": "Casier",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             }
           ],
           "toolbars": [
@@ -1171,29 +1277,18 @@
               "name": "ResultsViewer",
               "label": "Results Viewer",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "ProcessingToolbox",
               "label": "Processing Toolbox",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             }
           ],
           "toolbars": []
-        },
-        "QWorkspaceSwitcher": {
-          "docks": [],
-          "toolbars": [
-            {
-              "name": "QWorkspaceSwitcherToolbar",
-              "label": "QWorkspace Switcher",
-              "visible": true,
-              "area": "top",
-              "line": 4,
-              "order": 1
-            }
-          ]
         },
         "__qgis_native__": {
           "docks": [
@@ -1201,103 +1296,120 @@
               "name": "undo/redo dock",
               "label": "Undo/Redo",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "AdvancedDigitizingTools",
               "label": "Advanced Digitizing",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "StatisticalSummaryDockWidget",
               "label": "Statistics",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "BookmarksDockWidget",
               "label": "Spatial Bookmark Manager",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "VertexEditor",
               "label": "Vertex Editor",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "Layers",
               "label": "Layers",
               "visible": true,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "LayerOrder",
               "label": "Layer Order",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "Overview",
               "label": "Overview",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "QgsGeometryValidationDockBase",
               "label": "Geometry Validation",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "LayerStyling",
               "label": "Layer Styling",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "DevTools",
               "label": "Debugging/Development Tools",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             },
             {
               "name": "Browser",
               "label": "Browser",
               "visible": true,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "Temporal Controller",
               "label": "Temporal Controller",
               "visible": false,
-              "area": "top"
+              "area": "top",
+              "tab_order": 0
             },
             {
               "name": "Browser2",
               "label": "Browser (2)",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "GPSInformation",
               "label": "GPS Information",
               "visible": false,
-              "area": "left"
+              "area": "left",
+              "tab_order": 0
             },
             {
               "name": "MessageLog",
               "label": "Log Messages",
               "visible": false,
-              "area": "bottom"
+              "area": "bottom",
+              "tab_order": 0
             },
             {
               "name": "theTileScaleDock",
               "label": "Tile Scale",
               "visible": false,
-              "area": "right"
+              "area": "right",
+              "tab_order": 0
             }
           ],
           "toolbars": [
@@ -1307,7 +1419,7 @@
               "visible": true,
               "area": "top",
               "line": 1,
-              "order": 2
+              "order": 1
             },
             {
               "name": "mLayerToolBar",
@@ -1315,7 +1427,7 @@
               "visible": false,
               "area": "left",
               "line": 1,
-              "order": 1
+              "order": 2
             },
             {
               "name": "mDigitizeToolBar",
@@ -1347,7 +1459,7 @@
               "visible": true,
               "area": "top",
               "line": 1,
-              "order": 1
+              "order": 2
             },
             {
               "name": "mPluginToolBar",
@@ -1460,10 +1572,51 @@
               "area": "left",
               "line": 1,
               "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            },
+            {
+              "name": "mToolbar",
+              "label": "mToolbar",
+              "visible": false,
+              "area": "left",
+              "line": 1,
+              "order": 1
+            }
+          ]
+        },
+        "QWorkspaceSwitcher": {
+          "docks": [],
+          "toolbars": [
+            {
+              "name": "QWorkspaceSwitcherToolbar",
+              "label": "QWorkspace Switcher",
+              "visible": true,
+              "area": "top",
+              "line": 1,
+              "order": 1
             }
           ]
         }
-      }
+      },
+      "button_style": "text",
+      "icon": "",
+      "show_menu_bar": true,
+      "dropdown_menus": []
     }
   ]
 }

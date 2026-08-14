@@ -9,8 +9,14 @@ workspace configuration.
 
 **Excluded toolbars** (never repositioned):
 
-- ``QWorkspaceSwitcherToolbar`` — the plugin's own toolbar.
 - ``QToolBar`` — widgets without a valid name.
+
+``QWorkspaceSwitcherToolbar`` — the plugin's own toolbar — is
+positioned like any other: via its ``area``/``line``/``order``
+entry in the workspace configuration. It stays visible regardless
+of that entry's ``visible`` flag (enforced upstream, in
+``PerspectiveEngine._hide_all``), so users can never lock
+themselves out of the switcher UI.
 
 **Linked toolbars** (managed automatically by their dock via Qt signal):
 
@@ -37,7 +43,6 @@ from ..core.plugin_discovery import is_valid
 
 #: Toolbars never repositioned by the plugin.
 EXCLUDED_TOOLBARS = {
-    "QWorkspaceSwitcherToolbar",
     "QToolBar",
 }
 
@@ -56,7 +61,8 @@ class ToolbarApplicator:
 
     Positions :class:`QToolBar` in the main window areas
     respecting the line order. The ``QWorkspaceSwitcherToolbar``
-    is preserved at its current position on each application.
+    is positioned from its own configuration entry, like any
+    other toolbar.
 
     :example:
 
@@ -124,14 +130,12 @@ class ToolbarApplicator:
 
         Performs in order:
 
-        1. Save the position of ``QWorkspaceSwitcherToolbar``.
-        2. Collect visible toolbars grouped by area and line.
-        3. Remove all these toolbars from the main window.
-        4. Replace them — sorted by ``order`` within each line —
+        1. Collect visible toolbars grouped by area and line —
+           including ``QWorkspaceSwitcherToolbar``, positioned from
+           its own configuration entry like any other toolbar.
+        2. Remove all these toolbars from the main window.
+        3. Replace them — sorted by ``order`` within each line —
            in the correct sequence, with line breaks between lines.
-        5. Restore ``QWorkspaceSwitcherToolbar`` to its saved area,
-           forcing it onto its own line if other toolbars share
-           that area.
 
         Toolbars from :data:`EXCLUDED_TOOLBARS` and :data:`LINKED_TOOLBARS`
         are ignored.
@@ -190,15 +194,6 @@ class ToolbarApplicator:
                     "order":   order,
                 })
 
-        # Save position of QWorkspaceSwitcherToolbar
-        pm_toolbar = None
-        pm_area    = Qt.ToolBarArea.TopToolBarArea
-        for tb in main_win.findChildren(QToolBar):
-            if tb.objectName() == "QWorkspaceSwitcherToolbar":
-                pm_toolbar = tb
-                pm_area    = main_win.toolBarArea(tb)
-                break
-
         # Remove all toolbars to be repositioned
         all_toolbars = set()
         for area_data in area_lines.values():
@@ -253,21 +248,6 @@ class ToolbarApplicator:
                     if idx == 0 and line_num > 1:
                         main_win.insertToolBarBreak(toolbar)
                     toolbar.setVisible(True)
-
-        # Restore QWorkspaceSwitcherToolbar to its saved position.
-        # Force it onto its own line if anything was placed in the
-        # same area — otherwise it would silently be appended right
-        # after the last configured toolbar's line and merge into
-        # it, instead of keeping the separate line it's always had.
-        if pm_toolbar and is_valid(pm_toolbar):
-            pm_area_has_others = any(
-                self.AREA_MAP.get(area_str, Qt.ToolBarArea.TopToolBarArea) == pm_area
-                for area_str in area_lines
-            )
-            main_win.addToolBar(pm_area, pm_toolbar)
-            if pm_area_has_others:
-                main_win.insertToolBarBreak(pm_toolbar)
-            pm_toolbar.setVisible(True)
 
     def _find(self, name: str):
         """

@@ -9,3 +9,4 @@ perspectives/user.psp.json
 .DS_Store
 __MACOSX/
 *.zip
+.claude
