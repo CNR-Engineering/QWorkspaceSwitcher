@@ -148,6 +148,9 @@ class QWorkspaceSwitcher:
             lambda: self.iface.mainWindow().menuBar().setVisible(True)
         )
 
+        # Always begin with QGIS perspective (that should always exist)
+        self.engine.apply("QGIS")
+
     def unload(self):
         """
         Unload the plugin and restore the QGIS interface.
