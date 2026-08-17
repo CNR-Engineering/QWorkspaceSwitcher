@@ -46,8 +46,13 @@ from qgis.PyQt.QtCore import QObject, pyqtSignal, QFileSystemWatcher
 from .configuration import Configuration
 
 
-#: Default configuration — empty workspace list.
-CONFIG_DEFAULT = {"perspectives": []}
+#: Default configuration
+CONFIG_DEFAULT = {
+    "ico_left": True,                           # QWS configuration button is on the left side of the toolbar
+    "ico_spacer": True,                         # QWS configuration button is separated from the perpective buttons
+    "ico_cfg": "icon.png",                      # QWS configuration button icon
+    "perspectives": []                          # List of workspaces (= perspectives), empty by default, but must exist
+}
 
 
 class ConfigIO(QObject):
@@ -136,25 +141,26 @@ class ConfigIO(QObject):
         :return: Merged :class:`Configuration` instance.
         :rtype: Configuration
         """
-        lst_cfg     = [CONFIG_DEFAULT]
-        plugins_dir = os.path.dirname(os.path.dirname(self.base_dir))
+        lst_cfg = [CONFIG_DEFAULT]              # Least dominant config
 
+        plugins_dir = os.path.dirname(os.path.dirname(self.base_dir))
         psp_files = sorted(glob.glob(
             os.path.join(plugins_dir, "*", "*.psp.json")
         ))
-
         for fic in psp_files:
             if os.path.normpath(fic) == os.path.normpath(self.config_path):
                 continue
-            lst_cfg.append(fic)
+            lst_cfg.append(fic)                 # Increasingly dominant configs
+
+        lst_cfg.append(self.config_path)        # Most dominant config
 
         cfg = Configuration(
-            lst_cfg=lst_cfg,
-            fic_sav=self.config_path
+            lst_cfg=lst_cfg,                    # List of config sources, from least dominant to most dominant
+            fic_sav=self.config_path            # User file to save config to
         )
 
-        merged = self._merge_perspectives(lst_cfg + [self.config_path])
-        cfg.cfg["perspectives"] = merged
+        # merged = self._merge_perspectives(lst_cfg + [self.config_path])
+        # cfg.cfg["perspectives"] = merged
 
         return cfg
 
@@ -284,7 +290,7 @@ class ConfigIO(QObject):
 
     def list_all(self) -> list:
         """
-        Return the names of all workspaces from ``self._cfg``.
+        Return the names of all workspaces from ``self._cfg``, except deleted_perspectives.
 
         Includes both user and plugin workspaces.
 
@@ -302,6 +308,7 @@ class ConfigIO(QObject):
         return [
             p["name"]
             for p in self._cfg.get("perspectives", [])
+            if p["name"] not in self._cfg.get("deleted_perspectives", [])
         ]
 
     def list_all_merged(self) -> list:
@@ -643,8 +650,14 @@ class ConfigIO(QObject):
                 if original and p != original:
                     user_perspectives.append(p)
 
+        # Save config elements other than "perspectives"
+        user_data = {}
+        for k, v in self._cfg.cfg.items():
+            if k != "perspectives":
+                user_data[k] = v
+
         # Build final dictionary
-        user_data = {"perspectives": user_perspectives}
+        user_data["perspectives"] = user_perspectives
 
         # Preserve deleted_perspectives from existing file
         existing_user = self._read_user()

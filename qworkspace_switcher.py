@@ -101,21 +101,33 @@ class QWorkspaceSwitcher:
         self.toolbar = QToolBar("QWorkspace Switcher")
         self.toolbar.setObjectName("QWorkspaceSwitcherToolbar")
         self.iface.addToolBar(self.toolbar)
+        ico_left = self.engine.config_io._cfg.get("ico_left", True)
+        ico_spacer = self.engine.config_io._cfg.get("ico_spacer", True)
+        ico_cfg = self.engine.config_io._cfg.get("ico_cfg", "icon.png")
 
-        # Button to open the MainWindow
+        # Declare button to open the MainWindow (configuration of the workspaces)
         self.action_open = QAction(
-            QIcon(os.path.join(self.plugin_dir, "icon.png")),
+            QIcon(os.path.join(self.plugin_dir, ico_cfg)),
             "Manage workspaces",
             self.iface.mainWindow()
         )
         self.action_open.triggered.connect(self.run)
-        self.toolbar.addAction(self.action_open)
-        self.iface.addPluginToMenu(
-            "QWorkspace Switcher", self.action_open
-        )
+        self.iface.addPluginToMenu("QWorkspace Switcher", self.action_open)
 
-        self.toolbar.addSeparator()
-        self._refresh_toolbar()
+        # Display the buttons in the toolbar
+        print(f"{ico_left=} {ico_spacer=} {ico_cfg=}")
+        if ico_left:
+            # Sorting: cfg button - spacer - perspective buttons
+            self.toolbar.addAction(self.action_open)
+            if ico_spacer:
+                self.toolbar.addSeparator()
+            self._refresh_toolbar()
+        else:
+            # Sorting: perspective button - spacer - cfg buttons
+            self._refresh_toolbar()
+            if ico_spacer:
+                self.toolbar.addSeparator()
+            self.toolbar.addAction(self.action_open)
 
         # Connect signals
         self.engine.perspectiveChanged.connect(
@@ -238,7 +250,7 @@ class QWorkspaceSwitcher:
         self.perspective_actions.clear()
         self.perspective_buttons.clear()
 
-        for name in self.engine.config_io.list_all_merged():
+        for name in self.engine.config_io.list_all():
             data           = self.engine.config_io.load(name)
             style          = data.get("button_style", "text")
             icon_path      = data.get("icon", "")

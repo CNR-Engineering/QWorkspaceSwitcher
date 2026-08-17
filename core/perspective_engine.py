@@ -230,7 +230,7 @@ class PerspectiveEngine(QObject):
         :return: List of workspace names.
         :rtype: list[str]
         """
-        return self.config_io.list_all_merged()
+        return self.config_io.list_all()
 
     # ─────────────────────────────────────────────
     # WORKSPACES — CREATE
