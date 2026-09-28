@@ -201,9 +201,7 @@ class PerspectiveEngine(QObject):
 
         self.registry      = self.discovery.scan()
         self.state_capture = StateCapture(self.discovery)
-        data               = self.state_capture.capture(
-            self.DEFAULT_PERSPECTIVE_NAME
-        )
+        data               = self.state_capture.capture()
         self.config_io.save(self.DEFAULT_PERSPECTIVE_NAME, data)
 
     # ─────────────────────────────────────────────
@@ -221,16 +219,16 @@ class PerspectiveEngine(QObject):
         """
         return self.config_io.list_all()
 
-    def list_perspectives_merged(self) -> list:
-        """
-        Alias for :meth:`list_perspectives`.
-
-        Kept for compatibility with toolbar calls.
-
-        :return: List of workspace names.
-        :rtype: list[str]
-        """
-        return self.config_io.list_all()
+    # def list_perspectives_merged(self) -> list:
+    #     """
+    #     Alias for :meth:`list_perspectives`.
+    #
+    #     Kept for compatibility with toolbar calls.
+    #
+    #     :return: List of workspace names.
+    #     :rtype: list[str]
+    #     """
+    #     return self.config_io.list_all()
 
     # ─────────────────────────────────────────────
     # WORKSPACES — CREATE
@@ -253,7 +251,7 @@ class PerspectiveEngine(QObject):
         self.registry      = self.discovery.scan()
         self.state_capture = StateCapture(self.discovery)
 
-        data = self.state_capture.capture(name)
+        data = self.state_capture.capture()
         self.config_io.save(name, data)
         return True
 

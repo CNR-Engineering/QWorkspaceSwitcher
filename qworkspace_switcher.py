@@ -115,7 +115,6 @@ class QWorkspaceSwitcher:
         self.iface.addPluginToMenu("QWorkspace Switcher", self.action_open)
 
         # Display the buttons in the toolbar
-        print(f"{ico_left=} {ico_spacer=} {ico_cfg=}")
         if ico_left:
             # Sorting: cfg button - spacer - perspective buttons
             self.toolbar.addAction(self.action_open)
@@ -517,10 +516,10 @@ class QWorkspaceSwitcher:
             None, "Duplicate workspace", "New name:",
             text=f"{name} - copy"
         )
-        if ok and new_name.strip():
+        new_name = new_name.strip()
+        if ok and new_name:
             data         = self.engine.config_io.load(name)
-            data["name"] = new_name.strip()
-            self.engine.save_from_data(new_name.strip(), data)
+            self.engine.save_from_data(new_name, data)
             self._refresh_toolbar()
             if self.main_window:
                 self.main_window._refresh_list()

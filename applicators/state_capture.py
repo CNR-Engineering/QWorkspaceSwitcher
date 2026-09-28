@@ -63,7 +63,7 @@ class StateCapture:
         """
         self.discovery = discovery
 
-    def capture(self, name: str) -> dict:
+    def capture(self) -> dict:
         """
         Capture the current state of all docks and toolbars.
 
@@ -76,8 +76,6 @@ class StateCapture:
         Duplicates and invalid widgets are ignored.
         Toolbars in :attr:`EXCLUDED_TOOLBARS` are excluded.
 
-        :param name: Name of the workspace to create.
-        :type name: str
         :return: Captured workspace dictionary.
         :rtype: dict
 
@@ -85,9 +83,8 @@ class StateCapture:
 
         .. code-block:: python
 
-            data = capture.capture("Field survey")
+            data = capture.capture()
             # → {
-            #     "name": "Field survey",
             #     "plugins": {
             #         "__qgis_native__": {
             #             "docks": [
@@ -104,7 +101,7 @@ class StateCapture:
             # }
         """
         main_win = iface.mainWindow()
-        data     = {"name": name, "plugins": {}}
+        data     = {"plugins": {}}
 
         # CHANGE 2 — also capture the raw Qt window state, so it can
         # be restored as a geometry baseline (splitters, floating

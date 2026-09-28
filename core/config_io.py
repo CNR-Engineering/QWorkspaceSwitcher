@@ -48,10 +48,19 @@ from .configuration import Configuration
 
 #: Default configuration
 CONFIG_DEFAULT = {
-    "ico_left": True,                           # QWS configuration button is on the left side of the toolbar
-    "ico_spacer": True,                         # QWS configuration button is separated from the perpective buttons
-    "ico_cfg": "icon.png",                      # QWS configuration button icon
-    "perspectives": []                          # List of workspaces (= perspectives), empty by default, but must exist
+    "ico_left": True,       # QWS configuration button is on the left side of the toolbar
+    "ico_spacer": True,     # QWS configuration button is separated from the perpective buttons
+    "ico_cfg": "icon.png",  # QWS configuration button icon
+    "dic_psp": {}           # Dict of workspaces (= perspectives) {name: dic_properties}
+}
+PSP_DEFAULT = {
+    "is_visible": True,     # Allows to mask some perspectives (rather than maintaining a ``deleted_perspectives`` list)
+    "order": 999,           # New perspective comes last; TODO edit perspective order
+    "icon": "",             # Icon associated with the perspective
+    "button_style": "text", # Combination of text and icon
+    "show_menu_bar": True,  # Shows the main QGIS menu bar for this perspective
+    "dropdown_menus": [],   # TODO: for Panels/Toolbars/Menus: use dict rather than list, to fully benefit of class Configuration
+    "plugins": {}
 }
 
 
@@ -131,10 +140,11 @@ class ConfigIO(QObject):
         """
         Build the single source of truth from all sources.
 
-        Scans all ``*.psp.json`` files from installed QGIS plugins,
-        merges them with ``user.psp.json`` via :class:`Configuration`,
-        then fixes the perspective list merge via
-        :meth:`_merge_perspectives`.
+        Merges various workspaces (perspectives) configurations: from
+        ``*.psp.json`` files for installed QGIS plugins, and from ``user.psp.json``.
+        The hierarchical merge est is done by :class:`Configuration`, and the mixing can
+        be intimate if dict structures (better than list structures) are used for
+        perspective configurations.
 
         Called at startup and on external reload.
 
@@ -154,111 +164,13 @@ class ConfigIO(QObject):
 
         lst_cfg.append(self.config_path)        # Most dominant config
 
+        # Configuration object merges the psp configs
         cfg = Configuration(
             lst_cfg=lst_cfg,                    # List of config sources, from least dominant to most dominant
             fic_sav=self.config_path            # User file to save config to
         )
 
-        # merged = self._merge_perspectives(lst_cfg + [self.config_path])
-        # cfg.cfg["perspectives"] = merged
-
         return cfg
-
-    def _merge_perspectives(self, lst_cfg: list) -> list:
-        """
-        Merge workspaces from all sources by priority order.
-
-        User workspaces (``user.psp.json``) take priority over
-        plugin workspaces. In case of identical names, the user
-        version overrides the plugin version.
-
-        Workspaces listed in ``deleted_perspectives`` of
-        ``user.psp.json`` are excluded from the result.
-
-        **Order in the returned list:**
-
-        1. User workspaces (``user.psp.json``) first.
-        2. Non-overridden plugin workspaces next.
-
-        :param lst_cfg: List of sources — each element is a
-            :class:`dict` or a path to a JSON file.
-        :type lst_cfg: list
-        :return: Merged and ordered list of workspaces.
-        :rtype: list
-
-        :example:
-
-        .. code-block:: text
-
-            georelai.psp.json → [Modeling, Visualization]
-            user.psp.json     → [QGIS, Visualization (modified)]
-
-            Result → [QGIS, Modeling, Visualization (user)]
-        """
-        if not lst_cfg:
-            return []
-
-        # Read blacklist from user.psp.json
-        deleted = []
-        try:
-            if os.path.exists(self.config_path):
-                with open(self.config_path, 'r', encoding='utf-8') as f:
-                    user_data = json.load(f)
-                deleted = user_data.get("deleted_perspectives", [])
-        except Exception:
-            pass
-
-        user_perspectives   = {}
-        plugin_perspectives = {}
-
-        for source in lst_cfg:
-            if source is None:
-                continue
-
-            is_user = (
-                isinstance(source, str) and
-                os.path.normpath(source) == os.path.normpath(
-                    self.config_path
-                )
-            )
-
-            if isinstance(source, dict):
-                perspectives = source.get("perspectives", [])
-            elif isinstance(source, str):
-                path = os.path.normpath(source)
-                if not os.path.exists(path):
-                    continue
-                try:
-                    with open(path, 'r', encoding='utf-8') as f:
-                        data = json.load(f)
-                    perspectives = data.get("perspectives", [])
-                except Exception as e:
-                    print(f"[ConfigIO] Read error {path}: {e}")
-                    perspectives = []
-            else:
-                continue
-
-            for p in perspectives:
-                name = p.get("name")
-                if not name:
-                    continue
-                if name in deleted:  # ← respect blacklist
-                    continue
-                if is_user:
-                    user_perspectives[name]   = p
-                else:
-                    plugin_perspectives[name] = p
-
-        # Merge: user overrides plugins on name conflict
-        result       = dict(plugin_perspectives)
-        result.update(user_perspectives)
-        user_names   = list(user_perspectives.keys())
-        plugin_names = [
-            n for n in plugin_perspectives
-            if n not in user_perspectives
-        ]
-
-        return [result[n] for n in user_names + plugin_names]
 
     def _on_file_changed(self, path: str):
         """
@@ -290,12 +202,9 @@ class ConfigIO(QObject):
 
     def list_all(self) -> list:
         """
-        Return the names of all workspaces from ``self._cfg``, except deleted_perspectives.
+        Return the names of all workspaces from ``self._cfg``, except not is_visible.
 
-        Includes both user and plugin workspaces.
-
-        :return: List of workspace names in display order
-            (user first, plugins next).
+        :return: List of workspace names in display order.
         :rtype: list[str]
 
         :example:
@@ -305,22 +214,10 @@ class ConfigIO(QObject):
             names = config_io.list_all()
             # → ['QGIS', 'Field survey', 'Modeling', 'qats']
         """
-        return [
-            p["name"]
-            for p in self._cfg.get("perspectives", [])
-            if p["name"] not in self._cfg.get("deleted_perspectives", [])
-        ]
-
-    def list_all_merged(self) -> list:
-        """
-        Alias for :meth:`list_all`.
-
-        Kept for compatibility with existing calls.
-
-        :return: List of all workspace names.
-        :rtype: list[str]
-        """
-        return self.list_all()
+        lst_psp = [k for k, v in self._cfg["dic_psp"].items()
+            if v.get("is_visible") != False]
+        lst_psp = sorted(lst_psp, key=lambda k: self._cfg["dic_psp"][k].get("order", 999))
+        return lst_psp
 
     def load(self, name: str) -> dict:
         """
@@ -345,10 +242,9 @@ class ConfigIO(QObject):
             data     = config_io.load("Field survey")
             show_menu = data.get("show_menu_bar", True)
         """
-        for p in self._cfg.get("perspectives", []):
-            if p["name"] == name:
-                return copy.deepcopy(p)
-        return {}
+        if name not in self._cfg["dic_psp"]:
+            self.create_perspective(name)
+        return copy.deepcopy(self._cfg["dic_psp"][name])
 
     def save(self, name: str, data: dict):
         """
@@ -374,82 +270,36 @@ class ConfigIO(QObject):
         """
         self._writing = True
         try:
-            data["name"]  = name
-            perspectives  = self._cfg.get("perspectives", [])
-
-            for i, p in enumerate(perspectives):
-                if p["name"] == name:
-                    perspectives[i] = data
-                    self._cfg["perspectives"] = perspectives
-                    self._cfg.sgl_unsaved.emit()
-                    self._write_user_from_cfg()
-                    return
-
-            if name == "QGIS":
-                perspectives.insert(0, data)
-            else:
-                perspectives.append(data)
-
-            self._cfg["perspectives"] = perspectives
-            self._cfg.sgl_unsaved.emit()
-            self._write_user_from_cfg()
-
+            self._cfg["dic_psp"][name] = data
+            self._cfg.save(diff=True)
         except Exception as e:
             print(f"[ConfigIO] Save error: {e}")
-
         finally:
             self._writing = False
 
     def delete(self, name: str):
         """
-        Delete a workspace from ``self._cfg`` and ``user.psp.json``.
-
-        If the workspace comes from a plugin ``*.psp.json`` file,
-        it is added to ``deleted_perspectives`` in ``user.psp.json``
-        to be filtered on next plugin reload.
+        Hide a workspace from ``self._cfg`` and ``user.psp.json`` (simulate a deletion
+        without actually erasing the perspective: no more need for ``deleted_perspectives``).
 
         .. note::
             Deletion is immediate in ``self._cfg`` — the workspace
             disappears from the UI and toolbar without reloading.
-            It will be permanently absent on next startup thanks
-            to ``deleted_perspectives``.
 
         :param name: Name of the workspace to delete.
         :type name: str
         """
         self._writing = True
         try:
-            # Remove from self._cfg — immediate effect
-            perspectives = [
-                p for p in self._cfg.get("perspectives", [])
-                if p["name"] != name
-            ]
-            self._cfg["perspectives"] = perspectives
-            self._cfg.sgl_unsaved.emit()
-
-            # Persist in user.psp.json
-            user_data = self._read_user()
-
-            user_data["perspectives"] = [
-                p for p in user_data.get("perspectives", [])
-                if p["name"] != name
-            ]
-
-            # If plugin workspace → add to blacklist
-            if name in self.get_plugin_perspectives():
-                deleted = user_data.get("deleted_perspectives", [])
-                if name not in deleted:
-                    deleted.append(name)
-                user_data["deleted_perspectives"] = deleted
-
-            self._write_user(user_data)
-
+            self._cfg["dic_psp"][name]["is_visible"] = False
+            self._cfg.save(diff=True)
         finally:
             self._writing = False
 
     def rename(self, old_name: str, new_name: str):
         """
-        Rename a workspace in ``self._cfg`` and ``user.psp.json``.
+        Rename a workspace in ``self._cfg`` and ``user.psp.json``: add the new one by
+        deep copy, and mask the old one (mask it even if declared by another app).
 
         :param old_name: Current name of the workspace.
         :type old_name: str
@@ -458,25 +308,11 @@ class ConfigIO(QObject):
         """
         self._writing = True
         try:
-            # Rename in self._cfg
-            perspectives = self._cfg.get("perspectives", [])
-            for p in perspectives:
-                if p["name"] == old_name:
-                    p["name"] = new_name
-                    break
-            self._cfg["perspectives"] = perspectives
-            self._cfg.sgl_unsaved.emit()
-
-            # Rename in user.psp.json
-            user_data  = self._read_user()
-            user_persp = user_data.get("perspectives", [])
-            for p in user_persp:
-                if p["name"] == old_name:
-                    p["name"] = new_name
-                    break
-            user_data["perspectives"] = user_persp
-            self._write_user(user_data)
-
+            psp_cfg = self.load_psp(old_name)   # Deep copy
+            self._cfg["dic_psp"][new_name] = psp_cfg
+            self._cfg["dic_psp"][new_name]["is_visible"] = True
+            self.delete(old_name)
+            self._cfg.save(diff=True)
         finally:
             self._writing = False
 
@@ -500,170 +336,7 @@ class ConfigIO(QObject):
         if name in self.list_all():
             return False
 
-        empty = {
-            "name":           name,
-            "icon":           "",
-            "button_style":   "text",
-            "show_menu_bar":  True,
-            "dropdown_menus": [],
-            "plugins":        {}
-        }
-        self.save(name, empty)
+        psp_dft = PSP_DEFAULT
+        psp_dft["order"] = len(self._cfg["dic_psp"])
+        self.save(name, psp_dft)
         return True
-
-    def validate(self, data: dict) -> bool:
-        """
-        Validate the minimal structure of a workspace dictionary.
-
-        :param data: Dictionary to validate.
-        :type data: dict
-        :return: ``True`` if the dictionary contains the required keys.
-        :rtype: bool
-        """
-        return "name" in data and "plugins" in data
-
-    def get_plugin_perspectives(self) -> dict:
-        """
-        Return workspaces declared by installed plugins.
-
-        Scans all ``*.psp.json`` files from QGIS plugins
-        (excluding ``user.psp.json``) and returns a dictionary
-        ``{workspace_name: plugin_name}``.
-
-        :return: Dictionary mapping each workspace to its plugin.
-        :rtype: dict[str, str]
-
-        :example:
-
-        .. code-block:: python
-
-            plugin_persp = config_io.get_plugin_perspectives()
-            # → {"Modeling": "georelai", "Meshing": "meshwidgets"}
-        """
-        result      = {}
-        plugins_dir = os.path.dirname(os.path.dirname(self.base_dir))
-        psp_files   = glob.glob(
-            os.path.join(plugins_dir, "*", "*.psp.json")
-        )
-
-        for fic in psp_files:
-            if os.path.normpath(fic) == os.path.normpath(self.config_path):
-                continue
-            plugin_name = os.path.basename(os.path.dirname(fic))
-            try:
-                with open(fic, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                for p in data.get("perspectives", []):
-                    name = p.get("name")
-                    if name:
-                        result[name] = plugin_name
-            except Exception:
-                pass
-
-        return result
-
-    # ─────────────────────────────────────────────
-    # PRIVATE METHODS
-    # ─────────────────────────────────────────────
-
-    def _read_user(self) -> dict:
-        """
-        Read ``user.psp.json`` directly from disk.
-
-        :return: Content of ``user.psp.json``, or ``{"perspectives": []}``
-            if the file is missing or corrupted.
-        :rtype: dict
-        """
-        if not os.path.exists(self.config_path):
-            return {"perspectives": []}
-        try:
-            with open(self.config_path, 'r', encoding='utf-8') as f:
-                return json.load(f) or {"perspectives": []}
-        except Exception as e:
-            print(f"[ConfigIO] Read error: {e}")
-            return {"perspectives": []}
-
-    def _write_user(self, data: dict):
-        """
-        Write directly to ``user.psp.json`` on disk.
-
-        Emits :attr:`Configuration.sgl_saved` after writing.
-
-        :param data: Dictionary to save.
-        :type data: dict
-        """
-        try:
-            with open(self.config_path, 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
-            self._cfg.sgl_saved.emit()
-        except Exception as e:
-            print(f"[ConfigIO] Write error: {e}")
-
-    def _write_user_from_cfg(self):
-        """
-        Write ``user.psp.json`` from ``self._cfg``.
-
-        Only saves workspaces belonging to the user.
-        Plugin workspaces are included only if they have been
-        modified by the user (overrides).
-
-        Preserves ``deleted_perspectives`` from the existing file.
-
-        **Logic:**
-
-        - Non-plugin workspace → always written.
-        - Unmodified plugin workspace → ignored.
-        - Modified plugin workspace → written as override.
-        - ``deleted_perspectives`` → always preserved.
-        """
-        plugin_perspectives  = self.get_plugin_perspectives()
-        original_plugin_data = {}
-
-        # Load original plugin versions to detect overrides
-        plugins_dir = os.path.dirname(os.path.dirname(self.base_dir))
-        for name, plugin_name in plugin_perspectives.items():
-            psp_files = glob.glob(
-                os.path.join(plugins_dir, plugin_name, "*.psp.json")
-            )
-            if not psp_files:
-                continue
-            try:
-                with open(psp_files[0], 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                for p in data.get("perspectives", []):
-                    if p.get("name") == name:
-                        original_plugin_data[name] = p
-                        break
-            except Exception:
-                pass
-
-        # Build the list to write
-        user_perspectives = []
-        for p in self._cfg.get("perspectives", []):
-            name = p.get("name")
-            if name not in plugin_perspectives:
-                # User workspace → always write
-                user_perspectives.append(p)
-            else:
-                # Plugin workspace → write only if modified (override)
-                original = original_plugin_data.get(name)
-                if original and p != original:
-                    user_perspectives.append(p)
-
-        # Save config elements other than "perspectives"
-        user_data = {}
-        for k, v in self._cfg.cfg.items():
-            if k != "perspectives":
-                user_data[k] = v
-
-        # Build final dictionary
-        user_data["perspectives"] = user_perspectives
-
-        # Preserve deleted_perspectives from existing file
-        existing_user = self._read_user()
-        if "deleted_perspectives" in existing_user:
-            user_data["deleted_perspectives"] = existing_user[
-                "deleted_perspectives"
-            ]
-
-        self._write_user(user_data)

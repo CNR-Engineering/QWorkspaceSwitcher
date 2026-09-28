@@ -57,11 +57,11 @@ class Configuration(QObject):
     .. code-block:: python
 
         cfg = Configuration(
-            lst_cfg=[{"perspectives": []}, "user.psp.json"],
+            lst_cfg=[{"dic_psp": {}}, "user.psp.json"],
             fic_sav="user.psp.json"
         )
-        cfg["perspectives"] = [{"name": "Test"}]  # émet sgl_unsaved
-        cfg.save(diff=False)                       # émet sgl_saved
+        cfg["dic_psp"]["Test"] = {"is_visible": True}  # émet sgl_unsaved
+        cfg.save(diff=True)                       # émet sgl_saved
     """
 
     sgl_saved   = pyqtSignal()
@@ -126,7 +126,7 @@ class Configuration(QObject):
 
         .. code-block:: python
 
-            perspectives = cfg["perspectives"]
+            perspectives = cfg["dic_psp"]
         """
         return self.cfg.get(key)
 
@@ -143,7 +143,7 @@ class Configuration(QObject):
 
         .. code-block:: python
 
-            perspectives = cfg.get("perspectives", [])
+            perspectives = cfg.get("dic_psp", {})
         """
         return self.cfg.get(key, dft_val)
 
@@ -159,7 +159,7 @@ class Configuration(QObject):
 
         .. code-block:: python
 
-            if "perspectives" in cfg:
+            if "dic_psp" in cfg:
                 ...
         """
         return key in self.cfg

@@ -241,66 +241,71 @@ and appear in the QWorkspace Switcher toolbar.
 
 ```json
 {
-  "perspectives": [
-    {
-      "name": "Data collection",
+  "dic_psp": {
+    "Data collection": {
+      "is_visible": true,
+      "order": 0,
       "button_style": "text",
       "icon": "",
       "show_menu_bar": true,
       "dropdown_menus": [
-        {"plugin": "myplugin", "menu": "analysis_menu"}
+        {
+          "plugin": "myplugin",
+          "menu": "analysis_menu"
+        }
       ],
       "plugins": {
         "myplugin": {
           "docks": [
             {
-              "name":    "my_import_dock",
-              "label":   "Import",
+              "name": "my_import_dock",
+              "label": "Import",
               "visible": true,
-              "area":    "right"
+              "area": "right"
             },
             {
-              "name":    "my_results_dock",
-              "label":   "Results",
+              "name": "my_results_dock",
+              "label": "Results",
               "visible": false,
-              "area":    "left"
+              "area": "left"
             }
           ],
           "toolbars": [
             {
-              "name":    "MyPluginToolbar",
-              "label":   "My Plugin",
+              "name": "MyPluginToolbar",
+              "label": "My Plugin",
               "visible": true,
-              "area":    "top",
-              "line":    2,
-              "order":   1
+              "area": "top",
+              "line": 2,
+              "order": 1
             }
           ]
         },
         "__qgis_native__": {
           "docks": [
             {
-              "name":    "Layers",
-              "label":   "Layers",
+              "name": "Layers",
+              "label": "Layers",
               "visible": true,
-              "area":    "left"
+              "area": "left"
             }
           ],
           "toolbars": [
             {
-              "name":    "mMapNavToolBar",
-              "label":   "Map Navigation",
+              "name": "mMapNavToolBar",
+              "label": "Map Navigation",
               "visible": true,
-              "area":    "top",
-              "line":    1,
-              "order":   1
+              "area": "top",
+              "line": 1,
+              "order": 1
             }
           ]
         }
       }
     },
-    {
-      "name": "Results analysis",
+    "Results analysis": {
+      "is_visible": true,
+      "order": 1,
       "button_style": "text",
       "icon": "",
       "show_menu_bar": true,
@@ -309,32 +314,32 @@ and appear in the QWorkspace Switcher toolbar.
         "myplugin": {
           "docks": [
             {
-              "name":    "my_import_dock",
-              "label":   "Import",
+              "name": "my_import_dock",
+              "label": "Import",
               "visible": false,
-              "area":    "right"
+              "area": "right"
             },
             {
-              "name":    "my_results_dock",
-              "label":   "Results",
+              "name": "my_results_dock",
+              "label": "Results",
               "visible": true,
-              "area":    "right"
+              "area": "right"
             }
           ],
           "toolbars": [
             {
-              "name":    "MyPluginToolbar",
-              "label":   "My Plugin",
+              "name": "MyPluginToolbar",
+              "label": "My Plugin",
               "visible": true,
-              "area":    "top",
-              "line":    2,
-              "order":   1
+              "area": "top",
+              "line": 2,
+              "order": 1
             }
           ]
         }
       }
     }
-  ]
+  }
 }
 ```
 
@@ -413,20 +418,27 @@ User workspaces are stored in:
 This file can be shared between team members to standardize
 working environments across a project. The file includes:
 
-- `perspectives` — list of user workspaces
-- `deleted_perspectives` — blacklist of deleted plugin workspaces
+- `dic_psp` — list of user workspaces (perspectives)
+- `is_visible` — hidden if false (to emulate blacklist or deleted workspaces)
+- `order` — display order for the perspective
+- `icon` — icon standing for the perspective
+- `button_style` — combo text and icon to display
+- `show_menu_bar` — display QGIS main menu bar (Project/Edit...) for the perspective
 
 ```json
 {
-  "perspectives": [
-    {
-      "name": "QGIS",
+  "dic_psp": {
+    "QGIS": {
+      "is_visible": true,
+      "order": 0,
+      "icon": "",
       "button_style": "text",
       "show_menu_bar": true,
-      "plugins": { ... }
+      "plugins": {
+        ...
+      }
     }
-  ],
-  "deleted_perspectives": ["Modeling"]
+  }
 }
 ```
 

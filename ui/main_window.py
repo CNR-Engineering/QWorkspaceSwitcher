@@ -1314,10 +1314,10 @@ class MainWindow(QDialog, FORM_CLASS):
             self, "Duplicate workspace", "New name:",
             text=f"{old_name} - copy"
         )
-        if ok and new_name.strip():
+        new_name = new_name.strip()
+        if ok and new_name:
             data         = self.engine.config_io.load(old_name)
-            data["name"] = new_name.strip()
-            self.engine.save_from_data(new_name.strip(), data)
+            self.engine.save_from_data(new_name, data)
             self._refresh_list()
             self.perspectiveSaved.emit()
 
@@ -1383,7 +1383,7 @@ class MainWindow(QDialog, FORM_CLASS):
         :return: Complete workspace dictionary.
         :rtype: dict
         """
-        data         = {"name": name, "plugins": {}}
+        data         = {"plugins": {}}
         registry     = self.engine.get_registry()
         plugin_names = list(registry.keys())
 
