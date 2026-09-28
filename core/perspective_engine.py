@@ -441,7 +441,7 @@ class PerspectiveEngine(QObject):
         :param name: Name of the workspace to update.
         :type name: str
         """
-        data = self.state_capture.capture(name)
+        data = self.state_capture.capture()
         self.config_io.save(name, data)
 
     def save_from_data(self, name: str, data: dict):

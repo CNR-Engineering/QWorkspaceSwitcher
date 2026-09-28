@@ -78,7 +78,6 @@ class QWorkspaceSwitcher:
         self.main_window         = None
         self.engine              = None
         self.toolbar             = None
-        self.perspective_actions = {}
         self.perspective_buttons = {}
 
     def initGui(self):
@@ -114,19 +113,8 @@ class QWorkspaceSwitcher:
         self.action_open.triggered.connect(self.run)
         self.iface.addPluginToMenu("QWorkspace Switcher", self.action_open)
 
-        # Display the buttons in the toolbar
-        if ico_left:
-            # Sorting: cfg button - spacer - perspective buttons
-            self.toolbar.addAction(self.action_open)
-            if ico_spacer:
-                self.toolbar.addSeparator()
-            self._refresh_toolbar()
-        else:
-            # Sorting: perspective button - spacer - cfg buttons
-            self._refresh_toolbar()
-            if ico_spacer:
-                self.toolbar.addSeparator()
-            self.toolbar.addAction(self.action_open)
+        # Refresh the toolbar with the perspectives buttons
+        self._refresh_toolbar()
 
         # Connect signals
         self.engine.perspectiveChanged.connect(
@@ -242,16 +230,23 @@ class QWorkspaceSwitcher:
         if not self._is_toolbar_valid():
             return
 
-        # Remove existing buttons
-        for action in list(self.perspective_actions.values()):
-            try:
-                self.toolbar.removeAction(action)
-            except RuntimeError:
-                pass
-
-        self.perspective_actions.clear()
+        # Remove existing buttons and actions
+        self.toolbar.clear()
         self.perspective_buttons.clear()
 
+        # Get the config for toolbar display
+        ico_left = self.engine.config_io._cfg.get("ico_left", True)
+        ico_spacer = self.engine.config_io._cfg.get("ico_spacer", True)
+        ico_cfg = self.engine.config_io._cfg.get("ico_cfg", "icon.png")
+
+        # Display the config button in the toolbar
+        if ico_left:
+            # Display order: cfg button - spacer - perspective buttons
+            self.toolbar.addAction(self.action_open)
+            if ico_spacer:
+                self.toolbar.addSeparator()
+
+        # Display the perspectives buttons in the toolbar
         for name in self.engine.config_io.list_all():
             data           = self.engine.config_io.load(name)
             style          = data.get("button_style", "text")
@@ -299,9 +294,15 @@ class QWorkspaceSwitcher:
             if self.engine.get_current_perspective() == name:
                 btn.setChecked(True)
 
-            action = self.toolbar.addWidget(btn)
-            self.perspective_actions[name] = action
+            self.toolbar.addWidget(btn)
             self.perspective_buttons[name] = btn
+
+        # Display the config button in the toolbar
+        if not ico_left:
+            # Display order: perspective button - spacer - cfg buttons
+            if ico_spacer:
+                self.toolbar.addSeparator()
+            self.toolbar.addAction(self.action_open)
 
     def _on_config_file_changed(self):
         """
